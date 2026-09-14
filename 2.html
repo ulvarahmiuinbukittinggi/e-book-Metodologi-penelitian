@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pertemuan 2 — Penelitian Kuantitatif: Ciri, Variabel, dan Desain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --bg-0:#0a0a0f;
+    --bg-1:#11111a;
+    --bg-2:#1a1a26;
+    --bg-3:#22222f;
+    --gold:#c9a961;
+    --gold-2:#e8c987;
+    --gold-soft:rgba(201,169,97,.12);
+    --text:#e9e6df;
+    --muted:#9a9689;
+    --line:rgba(201,169,97,.22);
+    --danger:#e57373;
+    --success:#81c784;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg-0);
+    color:var(--text);
+    line-height:1.75;
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 15% 5%, rgba(201,169,97,.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(201,169,97,.04), transparent 40%);
+  }
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    padding:16px 6%;
+    display:flex;justify-content:space-between;align-items:center;
+    backdrop-filter:blur(14px);
+    background:rgba(10,10,15,.7);
+    border-bottom:1px solid var(--line);
+  }
+  .nav .brand{
+    font-family:'Playfair Display',serif;
+    font-size:1.15rem;font-weight:600;letter-spacing:2px;color:var(--gold-2);
+  }
+  .nav .brand span{color:var(--text);font-style:italic;font-weight:400}
+  .nav ul{display:flex;gap:28px;list-style:none}
+  .nav ul a{
+    color:var(--muted);text-decoration:none;font-size:.8rem;
+    letter-spacing:1.5px;text-transform:uppercase;transition:.3s;
+  }
+  .nav ul a:hover{color:var(--gold-2)}
+  @media(max-width:720px){.nav ul{display:none}}
+
+  .bab-hero{
+    padding:140px 6% 70px;
+    text-align:center;
+    position:relative;
+    border-bottom:1px solid var(--line);
+  }
+  .bab-hero::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent,rgba(201,169,97,.04),transparent);
+    pointer-events:none;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:12px;
+    color:var(--gold);font-size:.75rem;letter-spacing:4px;text-transform:uppercase;
+    margin-bottom:22px;
+  }
+  .eyebrow::before,.eyebrow::after{content:"";width:30px;height:1px;background:var(--gold)}
+  .bab-hero .bab-num{
+    font-family:'Playfair Display',serif;font-style:italic;
+    font-size:1.1rem;color:var(--gold-2);margin-bottom:14px;
+  }
+  .bab-hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,4.5vw,3.6rem);
+    font-weight:700;line-height:1.15;
+    background:linear-gradient(135deg,#fff 0%,var(--gold-2) 60%,var(--gold) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    margin-bottom:20px;max-width:900px;margin-left:auto;margin-right:auto;
+  }
+  .bab-hero h1 em{font-style:italic;font-weight:400;color:var(--gold-2);-webkit-text-fill-color:var(--gold-2)}
+  .bab-hero .subtitle{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.2rem;font-style:italic;color:var(--muted);
+    max-width:720px;margin:0 auto 34px;
+  }
+  .bab-nav{
+    display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+  }
+  .bab-nav a{
+    padding:10px 22px;border-radius:50px;
+    font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;
+    text-decoration:none;transition:.35s;
+  }
+  .bab-nav .back{background:transparent;color:var(--gold-2);border:1px solid var(--gold)}
+  .bab-nav .back:hover{background:var(--gold-soft)}
+  .bab-nav .next{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#1a1a26;font-weight:600}
+  .bab-nav .next:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(201,169,97,.3)}
+
+  .content{
+    max-width:920px;margin:0 auto;padding:70px 6%;
+  }
+  .content h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.6rem,3vw,2.2rem);
+    font-weight:600;color:#fff;margin:50px 0 20px;
+    padding-bottom:12px;border-bottom:1px solid var(--line);
+  }
+  .content h2 em{font-style:italic;color:var(--gold-2);font-weight:400}
+  .content h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.5rem;font-weight:600;color:var(--gold-2);
+    margin:36px 0 14px;
+  }
+  .content h4{
+    font-family:'Inter',sans-serif;
+    font-size:1.05rem;font-weight:600;color:#fff;
+    margin:22px 0 10px;letter-spacing:.5px;
+  }
+  .content p{margin-bottom:16px;color:var(--text);font-size:1rem}
+  .content p.lead{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.25rem;font-style:italic;color:var(--muted);
+    border-left:2px solid var(--gold);padding-left:20px;margin-bottom:28px;
+  }
+  .content ul,.content ol{margin:12px 0 20px 24px;color:var(--text)}
+  .content li{margin-bottom:8px}
+  .content strong{color:var(--gold-2);font-weight:600}
+  .content a{color:var(--gold-2);text-decoration:none;border-bottom:1px dotted var(--gold)}
+  .content a:hover{color:var(--gold)}
+
+  .block{
+    padding:26px 28px;border-radius:14px;margin:26px 0;
+    border:1px solid var(--line);
+    background:linear-gradient(145deg,rgba(26,26,38,.7),rgba(17,17,26,.5));
+  }
+  .block.key{border-left:3px solid var(--gold)}
+  .block.case{border-left:3px solid var(--gold-2);background:linear-gradient(145deg,rgba(201,169,97,.08),rgba(17,17,26,.5))}
+  .block.tip{border-left:3px solid var(--success)}
+  .block.warn{border-left:3px solid var(--danger)}
+  .block.quran{
+    border-left:3px solid var(--gold);
+    background:linear-gradient(145deg,rgba(201,169,97,.1),rgba(17,17,26,.6));
+    text-align:center;font-family:'Cormorant Garamond',serif;
+  }
+  .block.quran .arabic{
+    font-size:1.8rem;line-height:2;color:var(--gold-2);
+    direction:rtl;margin-bottom:14px;font-family:'Amiri','Cormorant Garamond',serif;
+  }
+  .block.quran .translation{font-style:italic;color:var(--text);font-size:1.05rem}
+  .block.quran .source{display:block;margin-top:10px;font-size:.8rem;color:var(--gold);letter-spacing:1px}
+  .block h4{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Playfair Display',serif;
+    font-size:1.15rem;color:#fff;margin-bottom:14px;
+  }
+  .block .icon{font-size:1.3rem}
+
+  .video-box{
+    margin:36px 0;padding:30px;
+    background:linear-gradient(135deg,rgba(201,169,97,.08),rgba(26,26,38,.6));
+    border:1px solid var(--line);border-radius:14px;text-align:center;
+  }
+  .video-box .play{
+    width:70px;height:70px;border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),var(--gold-2));
+    display:inline-flex;align-items:center;justify-content:center;
+    color:#1a1a26;font-size:1.6rem;margin-bottom:14px;
+    box-shadow:0 10px 30px rgba(201,169,97,.3);
+  }
+  .video-box h4{font-family:'Playfair Display',serif;color:#fff;margin-bottom:8px}
+  .video-box p{color:var(--muted);font-size:.9rem;margin-bottom:0}
+
+  table{
+    width:100%;border-collapse:collapse;margin:20px 0;
+    background:var(--bg-1);border:1px solid var(--line);border-radius:10px;overflow:hidden;
+    font-size:.92rem;
+  }
+  th{
+    background:linear-gradient(135deg,rgba(201,169,97,.2),rgba(201,169,97,.05));
+    color:var(--gold-2);padding:14px 16px;text-align:left;
+    font-family:'Playfair Display',serif;font-size:.95rem;letter-spacing:1px;
+    border-bottom:1px solid var(--line);
+  }
+  td{padding:12px 16px;border-bottom:1px solid rgba(201,169,97,.1);color:var(--text);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:rgba(201,169,97,.04)}
+
+  blockquote{
+    margin:28px 0;padding:22px 28px;
+    border-left:3px solid var(--gold);
+    background:rgba(201,169,97,.05);border-radius:0 10px 10px 0;
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:1.2rem;color:var(--text);
+  }
+  blockquote cite{display:block;margin-top:10px;font-size:.85rem;color:var(--gold-2);font-style:normal;letter-spacing:1px}
+
+  .figure{
+    margin:30px 0;padding:20px;
+    background:var(--bg-1);border:1px solid var(--line);border-radius:10px;
+    text-align:center;
+  }
+  .figure .diagram{
+    display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;
+    padding:20px 10px;
+  }
+  .figure .node{
+    padding:14px 20px;border-radius:10px;
+    background:linear-gradient(135deg,rgba(201,169,97,.15),rgba(201,169,97,.05));
+    border:1px solid var(--gold);
+    font-family:'Playfair Display',serif;color:var(--gold-2);
+    font-size:.95rem;min-width:140px;
+  }
+  .figure .node.var-x{border-color:var(--gold);background:linear-gradient(135deg,rgba(201,169,97,.2),rgba(201,169,97,.08))}
+  .figure .node.var-y{border-color:#81c784;background:linear-gradient(135deg,rgba(129,199,132,.15),rgba(129,199,132,.05));color:#a5d6a7}
+  .figure .node.var-m{border-color:#90caf9;background:linear-gradient(135deg,rgba(144,202,249,.15),rgba(144,202,249,.05));color:#bbdefb}
+  .figure .arrow{color:var(--gold);font-size:1.3rem}
+  .figure .caption{
+    margin-top:14px;font-size:.85rem;color:var(--muted);font-style:italic;
+  }
+
+  .timeline{
+    position:relative;padding-left:30px;margin:24px 0;
+  }
+  .timeline::before{
+    content:"";position:absolute;left:8px;top:0;bottom:0;width:2px;
+    background:linear-gradient(180deg,var(--gold),transparent);
+  }
+  .timeline-item{position:relative;margin-bottom:22px;padding-left:20px}
+  .timeline-item::before{
+    content:"";position:absolute;left:-27px;top:6px;
+    width:14px;height:14px;border-radius:50%;
+    background:var(--gold);border:3px solid var(--bg-0);
+    box-shadow:0 0 0 2px var(--gold);
+  }
+  .timeline-item .year{
+    font-family:'Playfair Display',serif;font-style:italic;
+    color:var(--gold-2);font-size:1rem;margin-bottom:4px;
+  }
+  .timeline-item .desc{color:var(--text);font-size:.95rem}
+
+  .formula{
+    margin:20px 0;padding:18px 24px;
+    background:var(--bg-2);border:1px solid var(--line);border-radius:10px;
+    text-align:center;font-family:'Cormorant Garamond',serif;
+    font-size:1.3rem;color:var(--gold-2);font-style:italic;
+    letter-spacing:1px;
+  }
+  .formula .caption{
+    display:block;margin-top:10px;font-size:.8rem;color:var(--muted);
+    font-style:normal;letter-spacing:1px;text-align:center;
+  }
+
+  .bab-footer{
+    padding:40px 6%;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+    max-width:920px;margin:0 auto;
+  }
+  .bab-footer a{
+    padding:12px 24px;border-radius:50px;text-decoration:none;
+    font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;transition:.35s;
+  }
+  .bab-footer .back{background:transparent;color:var(--gold-2);border:1px solid var(--gold)}
+  .bab-footer .back:hover{background:var(--gold-soft)}
+  .bab-footer .next{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#1a1a26;font-weight:600}
+  .bab-footer .next:hover{transform:translateY(-2px)}
+
+  .quiz-section{
+    margin-top:80px;padding:60px 6%;
+    background:linear-gradient(180deg,transparent,rgba(201,169,97,.04));
+    border-top:1px solid var(--line);
+  }
+  .quiz-wrap{max-width:920px;margin:0 auto}
+  .quiz-head{text-align:center;margin-bottom:50px}
+  .quiz-head h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:600;color:#fff;margin-bottom:14px;
+  }
+  .quiz-head h2 em{font-style:italic;color:var(--gold-2);font-weight:400}
+  .quiz-head p{color:var(--muted);max-width:640px;margin:0 auto}
+  .quiz-meta{
+    display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:20px;
+    font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);
+  }
+  .quiz-meta span{padding:6px 14px;border:1px solid var(--gold);border-radius:20px}
+
+  .quiz-card{
+    background:linear-gradient(145deg,rgba(26,26,38,.8),rgba(17,17,26,.6));
+    border:1px solid var(--line);border-radius:16px;
+    padding:34px;margin-bottom:30px;
+  }
+  .quiz-card h3{
+    font-family:'Playfair Display',serif;
+    font-size:1.35rem;color:var(--gold-2);margin-bottom:8px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .quiz-card .warn-text{
+    color:var(--danger);font-size:.85rem;margin-bottom:20px;
+    padding:10px 14px;background:rgba(229,115,115,.08);border-radius:8px;
+    border-left:2px solid var(--danger);
+  }
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:640px){.form-grid{grid-template-columns:1fr}}
+  .form-group{display:flex;flex-direction:column;gap:6px}
+  .form-group.full{grid-column:1/-1}
+  .form-group label{
+    font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);
+  }
+  .form-group input,.form-group select,.form-group textarea{
+    padding:12px 14px;border-radius:8px;
+    background:var(--bg-2);border:1px solid var(--line);
+    color:var(--text);font-family:'Inter',sans-serif;font-size:.95rem;
+    transition:.3s;
+  }
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+    outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,169,97,.15);
+  }
+  .form-group textarea{min-height:100px;resize:vertical}
+
+  .question{
+    padding:22px;margin-bottom:18px;
+    background:rgba(10,10,15,.5);border:1px solid var(--line);border-radius:12px;
+  }
+  .question .q-num{
+    display:inline-block;padding:4px 12px;border-radius:20px;
+    background:linear-gradient(135deg,var(--gold),var(--gold-2));
+    color:#1a1a26;font-size:.75rem;font-weight:600;letter-spacing:1px;
+    margin-bottom:12px;
+  }
+  .question .q-text{font-size:1rem;color:#fff;margin-bottom:16px;line-height:1.6}
+  .options{display:flex;flex-direction:column;gap:10px}
+  .option{
+    display:flex;align-items:flex-start;gap:12px;
+    padding:12px 16px;border-radius:10px;
+    background:var(--bg-2);border:1px solid transparent;
+    cursor:pointer;transition:.3s;
+  }
+  .option:hover{border-color:var(--gold);background:rgba(201,169,97,.06)}
+  .option input{margin-top:4px;accent-color:var(--gold);cursor:pointer}
+  .option label{cursor:pointer;flex:1;font-size:.95rem}
+  .option.correct{border-color:var(--success);background:rgba(129,199,132,.08)}
+  .option.wrong{border-color:var(--danger);background:rgba(229,115,115,.08)}
+
+  .score-box{
+    margin-top:30px;padding:30px;
+    background:linear-gradient(135deg,rgba(201,169,97,.1),rgba(26,26,38,.8));
+    border:1px solid var(--gold);border-radius:14px;text-align:center;
+    display:none;
+  }
+  .score-box.show{display:block;animation:fadeUp .6s ease}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+  .score-box h3{font-family:'Playfair Display',serif;color:var(--gold-2);margin-bottom:16px;font-size:1.5rem}
+  .score-display{
+    font-family:'Playfair Display',serif;
+    font-size:3rem;font-weight:700;
+    background:linear-gradient(135deg,var(--gold),var(--gold-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    margin:10px 0;
+  }
+  .score-detail{display:flex;justify-content:center;gap:30px;margin:20px 0;flex-wrap:wrap}
+  .score-detail div{text-align:center}
+  .score-detail .num{font-size:1.6rem;color:#fff;font-weight:600;font-family:'Playfair Display',serif}
+  .score-detail .lbl{font-size:.75rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:24px}
+  .btn{
+    padding:13px 26px;border-radius:50px;
+    font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;
+    text-decoration:none;cursor:pointer;border:none;transition:.35s;
+    font-family:'Inter',sans-serif;font-weight:500;
+  }
+  .btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#1a1a26;font-weight:600}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(201,169,97,.3)}
+  .btn-ghost{background:transparent;color:var(--gold-2);border:1px solid var(--gold)}
+  .btn-ghost:hover{background:var(--gold-soft)}
+  .btn-danger{background:transparent;color:var(--danger);border:1px solid var(--danger)}
+  .btn-danger:hover{background:rgba(229,115,115,.1)}
+
+  footer{
+    padding:40px 6% 25px;border-top:1px solid var(--line);
+    text-align:center;color:var(--muted);font-size:.82rem;
+  }
+  footer .brand{font-family:'Playfair Display',serif;color:var(--gold-2);font-size:1.05rem;margin-bottom:8px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="brand">METOPEN <span>— MPI</span></div>
+  <ul>
+    <li><a href="index.html#tentang">Beranda</a></li>
+    <li><a href="index.html#pertemuan">Pertemuan</a></li>
+    <li><a href="index.html#penulis">Penulis</a></li>
+  </ul>
+</nav>
+
+<header class="bab-hero">
+  <div class="bab-num">Pertemuan 2 dari 16</div>
+  <div class="eyebrow">Metodologi Penelitian · S2 MPI</div>
+  <h1>Penelitian Kuantitatif: <em>Ciri, Variabel,</em> dan <em>Desain</em></h1>
+  <p class="subtitle">Menyelami dunia angka, statistik, dan generalisasi — dari paradigma positivisme hingga desain eksperimen, survei, dan korelasional dalam penelitian pendidikan Islam.</p>
+  <div class="bab-nav">
+    <a href="index.html" class="back">← Kembali ke Daftar Pertemuan</a>
+    <a href="#pendahuluan" class="next">Mulai Membaca →</a>
+  </div>
+</header>
+
+<main class="content" id="pendahuluan">
+
+  <h2>Pendahuluan</h2>
+  <p class="lead">Angka bukanlah sekadar simbol — ia adalah bahasa universal yang memungkinkan kita mengukur, membandingkan, dan memahami realitas secara objektif. Dalam penelitian kuantitatif, data numerik menjadi jembatan antara fenomena yang diamati dan kebenaran ilmiah yang dapat digeneralisasi.</p>
+
+  <p>Pada pertemuan kedua ini, kita akan memasuki wilayah <strong>penelitian kuantitatif</strong> — sebuah pendekatan yang berakar pada paradigma positivisme dan post-positivisme. Mahasiswa S2 MPI akan diajak memahami <strong>ciri-ciri khas</strong> penelitian kuantitatif, mengenal berbagai <strong>jenis variabel</strong> yang menjadi fondasi analisis, serta mengeksplorasi <strong>desain-desain penelitian</strong> seperti eksperimen, survei, korelasional, komparatif, dan ex post facto.</p>
+
+  <p>Dalam konteks pendidikan Islam, pendekatan kuantitatif memiliki peran strategis: mulai dari mengukur efektivitas metode pembelajaran tahfizh, menganalisis pengaruh kepemimpinan kepala madrasah terhadap kinerja guru, hingga mengevaluasi dampak program beasiswa santri. Semua ini memerlukan pemahaman yang kokoh tentang logika kuantitatif — dari identifikasi variabel hingga pemilihan desain yang tepat.</p>
+
+  <!-- AYAT AL-QUR'AN -->
+  <div class="block quran">
+    <div class="arabic">يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ كُونُوا۟ قَوَّٰمِينَ بِٱلْقِسْطِ شُهَدَآءَ لِلَّهِ وَلَوْ عَلَىٰٓ أَنفُسِكُمْ</div>
+    <div class="translation">"Wahai orang-orang yang beriman! Jadilah kamu orang yang benar-benar penegak keadilan, menjadi saksi karena Allah biarpun terhadap dirimu sendiri."</div>
+    <span class="source">— QS. An-Nisa [4]: 135</span>
+  </div>
+
+  <blockquote>
+    "Penelitian kuantitatif mengajarkan kita untuk berbicara dengan data, bukan dengan asumsi. Dalam perspektif Islam, ini sejalan dengan prinsip <em>qisth</em> (keadilan) dan <em>tabayyun</em> (verifikasi) — mengukur sesuatu secara tepat sebelum mengambil keputusan."
+    <cite>— Dr. Ulva Rahmi, S.Ag., M.Pd</cite>
+  </blockquote>
+
+  <!-- VIDEO -->
+  <div class="video-box">
+    <div class="play">▶</div>
+    <h4>Video: Mengapa Penelitian Kuantitatif Penting dalam Pendidikan Islam?</h4>
+    <p>Simak penjelasan tentang peran pendekatan kuantitatif dalam menjawab problematika pendidikan Islam secara objektif dan terukur.</p>
+    <p style="margin-top:10px;font-size:.75rem;opacity:.6">Sumber: Kanal Akademik FTIK UIN Bukittinggi</p>
+  </div>
+
+  <!-- KONSEP KUNCI -->
+  <div class="block key">
+    <h4><span class="icon">🔑</span> Konsep Kunci</h4>
+    <ul>
+      <li><strong>Penelitian Kuantitatif:</strong> Pendekatan penelitian yang menggunakan data numerik, analisis statistik, dan bertujuan menguji hipotesis untuk menghasilkan generalisasi.</li>
+      <li><strong>Variabel:</strong> Konstruk atau sifat yang memiliki variasi nilai dan dapat diukur secara empiris.</li>
+      <li><strong>Desain Penelitian:</strong> Rencana strategis tentang bagaimana data akan dikumpulkan, diukur, dan dianalisis untuk menjawab pertanyaan penelitian.</li>
+      <li><strong>Hipotesis:</strong> Jawaban sementara terhadap masalah penelitian yang kebenarannya harus diuji secara empiris.</li>
+      <li><strong>Populasi & Sampel:</strong> Keseluruhan subjek penelitian dan sebagian representatif yang benar-benar diteliti.</li>
+      <li><strong>Objektivitas:</strong> Prinsip penelitian kuantitatif yang menuntut peneliti bersikap netral dan bebas dari bias subjektif.</li>
+    </ul>
+  </div>
+
+  <!-- STUDI KASUS 1 -->
+  <div class="block case">
+    <h4><span class="icon">📖</span> Studi Kasus 1: Mengukur Efektivitas Metode Hafalan Al-Qur'an</h4>
+    <p>Sebuah pesantren di Sumatera Barat menerapkan dua metode hafalan Al-Qur'an yang berbeda: <strong>metode tikrar</strong> (pengulangan) dan <strong>metode talqin</strong> (pemberian contoh oleh guru). Kepala pesantren ingin mengetahui metode mana yang lebih efektif dalam meningkatkan kecepatan dan ketahanan hafalan santri.</p>
+    <p>Ia merancang <strong>penelitian eksperimen semu (quasi-experiment)</strong> dengan dua kelompok santri: kelompok eksperimen menggunakan metode tikrar, dan kelompok kontrol menggunakan metode talqin. Data diukur melalui tes hafalan mingguan selama tiga bulan, kemudian dianalisis dengan <em>uji-t</em> untuk membandingkan rata-rata pencapaian kedua kelompok.</p>
+    <p>Hasil penelitian menunjukkan bahwa metode tikrar menghasilkan peningkatan hafalan yang signifikan lebih tinggi (p < 0,05). Temuan ini kemudian dijadikan dasar kebijakan pesantren untuk mengadopsi metode tikrar secara luas.</p>
+    <p><strong>Pembelajaran:</strong> Penelitian kuantitatif memungkinkan pengambilan keputusan berbasis bukti (<em>evidence-based</em>) yang objektif dan dapat dipertanggungjawabkan.</p>
+  </div>
+
+  <!-- REFLEKSI -->
+  <div class="block tip">
+    <h4><span class="icon">💭</span> Refleksi untuk Peneliti Muslim</h4>
+    <p>Dalam tradisi Islam, pengukuran yang akurat adalah bagian dari <em>amanah</em> keilmuan. Al-Qur'an sendiri mengajarkan pentingnya menakar dengan adil: <em>"Sempurnakanlah takaran dan janganlah kamu termasuk orang-orang yang merugi"</em> (QS. Asy-Syu'ara [26]: 181). Penelitian kuantitatif, dengan prinsip objektivitas dan ketepatannya, merupakan manifestasi modern dari nilai-nilai ini. Seorang peneliti muslim harus menjaga kejujuran dalam pengumpulan data, analisis, dan pelaporan hasil — karena setiap angka akan dipertanggungjawabkan di hadapan Allah SWT.</p>
+  </div>
+
+  <!-- ========================================================== -->
+  <h2>2.1 Landasan Teoretis Penelitian Kuantitatif</h2>
+  <p>Penelitian kuantitatif tidak lahir dari ruang hampa — ia tumbuh dari tradisi filsafat positivisme yang berkembang di Eropa pada abad ke-19, dengan akar yang dapat ditelusuri hingga ke pemikiran Auguste Comte, Emile Durkheim, dan kemudian para metodolog modern seperti Campbell & Stanley, Fraenkel & Wallen, serta Creswell.</p>
+
+  <h3>2.1.1 Hakikat Penelitian Kuantitatif: Tinjauan Multi-Perspektif</h3>
+  <p>Para ahli memberikan definisi yang beragam namun saling melengkapi tentang penelitian kuantitatif:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Ahli</th>
+        <th>Definisi Penelitian Kuantitatif</th>
+        <th>Penekanan Utama</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Creswell (2014)</strong></td>
+        <td>Penelitian yang digunakan untuk menguji teori objektif dengan memeriksa hubungan antar variabel yang dapat diukur dan dianalisis dengan prosedur statistik.</td>
+        <td>Pengujian teori & statistik</td>
+      </tr>
+      <tr>
+        <td><strong>Sugiyono (2019)</strong></td>
+        <td>Metode penelitian yang berlandaskan pada filsafat positivisme, digunakan untuk meneliti pada populasi atau sampel tertentu, dengan instrumen penelitian dan analisis data kuantitatif/statistik.</td>
+        <td>Positivisme & generalisasi</td>
+      </tr>
+      <tr>
+        <td><strong>Fraenkel & Wallen (2009)</strong></td>
+        <td>Penelitian yang melibatkan pengumpulan data numerik untuk mendeskripsikan, menjelaskan, atau memprediksi fenomena melalui analisis statistik.</td>
+        <td>Data numerik & prediksi</td>
+      </tr>
+      <tr>
+        <td><strong>Arikunto (2013)</strong></td>
+        <td>Penelitian yang menghasilkan data-data berupa angka-angka dan tidak diukur dengan kata-kata, melainkan dengan analisis statistik.</td>
+        <td>Angka & statistik</td>
+      </tr>
+      <tr>
+        <td><strong>Cooper & Schindler (2014)</strong></td>
+        <td>Penelitian yang mengkuantifikasi hubungan antara fenomena melalui pengumpulan data numerik dan analisis statistik untuk menghasilkan generalisasi.</td>
+        <td>Hubungan & generalisasi</td>
+      </tr>
+      <tr>
+        <td><strong>Nazir (2014)</strong></td>
+        <td>Proses menemukan pengetahuan yang menggunakan data berupa angka sebagai alat mendeskripsikan dan menganalisis fenomena yang diteliti.</td>
+        <td>Deskripsi & analisis</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Dari berbagai definisi di atas, dapat disintesis bahwa <strong>penelitian kuantitatif</strong> memiliki lima unsur fundamental: (1) berlandaskan <em>paradigma positivisme</em>, (2) menggunakan <em>data numerik</em>, (3) menganalisis dengan <em>statistik</em>, (4) bertujuan <em>menguji hipotesis</em>, dan (5) menghasilkan <em>generalisasi</em>.</p>
+
+  <h3>2.1.2 Sejarah dan Perkembangan</h3>
+  <p>Perkembangan penelitian kuantitatif tidak dapat dilepaskan dari evolusi filsafat ilmu dan statistik modern:</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="year">Abad ke-17 — Pascal & Fermat</div>
+      <div class="desc">Peletakan dasar <strong>teori probabilitas</strong> yang menjadi fondasi statistik inferensial modern.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="year">Abad ke-18 — Carl Friedrich Gauss</div>
+      <div class="desc">Pengembangan <strong>distribusi normal</strong> (kurva lonceng) yang menjadi dasar analisis statistik parametrik.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="year">1830-an — Auguste Comte</div>
+      <div class="desc">Bapak positivisme yang memperkenalkan gagasan bahwa ilmu pengetahuan harus berbasis pada <strong>observasi empiris</strong> dan <strong>hukum-hukum umum</strong>.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="year">1890-an — Karl Pearson</div>
+      <div class="desc">Pengembangan <strong>koefisien korelasi</strong> dan uji chi-square — alat statistik yang masih digunakan hingga kini.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="year">1920-an — Ronald Fisher</div>
+      <div class="desc">Perintis <strong>desain eksperimen</strong>, ANOVA, dan prinsip randomisasi — fondasi metodologi eksperimen modern.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="year">1963 — Campbell & Stanley</div>
+      <div class="desc">Penerbitan <em>Experimental and Quasi-Experimental Designs for Research</em> — buku klasik yang menjadi rujukan desain eksperimen hingga saat ini.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="year">1990-an–kini — Era Komputasi</div>
+      <div class="desc">Perkembangan software statistik (SPSS, AMOS, SmartPLS, R) merevolusi analisis data kuantitatif, memungkinkan teknik canggih seperti SEM dan path analysis.</div>
+    </div>
+  </div>
+
+  <h3>2.1.3 Paradigma Positivisme dan Post-Positivisme</h3>
+  <p>Penelitian kuantitatif berakar pada dua paradigma utama:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Aspek</th>
+        <th>Positivisme (Comte, Durkheim)</th>
+        <th>Post-Positivisme (Popper, Lakatos)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ontologi</strong></td>
+        <td>Realitas tunggal, objektif, independen dari pengamat</td>
+        <td>Realitas ada, tetapi hanya dapat dipahami secara tidak sempurna</td>
+      </tr>
+      <tr>
+        <td><strong>Epistemologi</strong></td>
+        <td>Peneliti dan objek terpisah; objektivitas mutlak</td>
+        <td>Peneliti berinteraksi dengan objek; objektivitas dimodifikasi</td>
+      </tr>
+      <tr>
+        <td><strong>Metodologi</strong></td>
+        <td>Eksperimen, survei, analisis statistik ketat</td>
+        <td>Eksperimen kritis, survei canggih, triangulasi</td>
+      </tr>
+      <tr>
+        <td><strong>Tujuan</strong></td>
+        <td>Menemukan hukum umum (law-like generalizations)</td>
+        <td>Mendekati kebenaran melalui falsifikasi</td>
+      </tr>
+      <tr>
+        <td><strong>Contoh</strong></td>
+        <td>Pengaruh metode mengajar terhadap prestasi</td>
+        <td>Uji hipotesis dengan pengakuan bias peneliti</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="block quran">
+    <div class="arabic">وَلَا تَقْفُ مَا لَيْسَ لَكَ بِهِۦ عِلْمٌ ۚ إِنَّ ٱلسَّمْعَ وَٱلْبَصَرَ وَٱلْفُؤَادَ كُلُّ أُو۟لَٰٓئِكَ كَانَ عَنْهُ مَسْـُٔولًا</div>
+    <div class="translation">"Dan janganlah kamu mengikuti sesuatu yang tidak kamu ketahui. Sesungguhnya pendengaran, penglihatan, dan hati, semuanya itu akan diminta pertanggungan jawabnya."</div>
+    <span class="source">— QS. Al-Isra [17]: 36</span>
+  </div>
+
+  <!-- ========================================================== -->
+  <h2>2.2 Ciri-Ciri Penelitian Kuantitatif</h2>
+  <p>Penelitian kuantitatif memiliki ciri khas yang membedakannya dari pendekatan kualitatif. Berikut adalah sintesis ciri-ciri utama:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Ciri</th>
+        <th>Deskripsi</th>
+        <th>Implikasi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><strong>Spesifik & Jelas</strong></td>
+        <td>Masalah penelitian dirumuskan secara spesifik dan tidak multitafsir</td>
+        <td>Fokus penelitian tajam, tidak melebar</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>Desain Terstruktur</strong></td>
+        <td>Rencana penelitian disusun matang sebelum turun ke lapangan</td>
+        <td>Tahapan sistematis, tidak berubah di tengah jalan</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>Variabel Terdefinisi</strong></td>
+        <td>Variabel diukur dengan indikator yang jelas dan operasional</td>
+        <td>Memungkinkan pengujian hipotesis</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><strong>Data Numerik</strong></td>
+        <td>Data dikumpulkan dalam bentuk angka melalui instrumen terstandar</td>
+        <td>Dapat dianalisis dengan statistik</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><strong>Sampel Representatif</strong></td>
+        <td>Sampel dipilih secara acak untuk mewakili populasi</td>
+        <td>Hasil dapat digeneralisasi</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><strong>Objektif</strong></td>
+        <td>Peneliti menjaga jarak dengan objek; bebas dari bias subjektif</td>
+        <td>Hasil tidak dipengaruhi nilai pribadi peneliti</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><strong>Verifikatif</strong></td>
+        <td>Hasil dapat diuji ulang oleh peneliti lain</td>
+        <td>Reliabilitas dan validitas terjamin</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td><strong>Generalisasi</strong></td>
+        <td>Tujuan akhir adalah menghasilkan kesimpulan yang berlaku umum</td>
+        <td>Kontribusi teoretis yang luas</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td><strong>Deduktif</strong></td>
+        <td>Berangkat dari teori → hipotesis → data → konfirmasi</td>
+        <td>Menguji teori yang sudah ada</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td><strong>Analisis Statistik</strong></td>
+        <td>Data dianalisis dengan teknik statistik deskriptif dan inferensial</td>
+        <td>Keputusan berbasis probabilitas</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="block warn">
+    <h4><span class="icon">⚠️</span> Mitos tentang Penelitian Kuantitatif</h4>
+    <ul>
+      <li><strong>Mitos 1:</strong> "Kuantitatif lebih superior dari kualitatif." — <em>Fakta:</em> Keduanya setara, hanya berbeda paradigma dan tujuan.</li>
+      <li><strong>Mitos 2:</strong> "Kuantitatif tidak membutuhkan kedalaman." — <em>Fakta:</em> Kuantitatif memerlukan pemahaman teoretis yang mendalam untuk membangun kerangka berpikir.</li>
+      <li><strong>Mitos 3:</strong> "Software statistik bisa menggantikan peneliti." — <em>Fakta:</em> Software hanya alat; interpretasi tetap membutuhkan keahlian peneliti.</li>
+      <li><strong>Mitos 4:</strong> "Semua masalah bisa diukur dengan angka." — <em>Fakta:</em> Beberapa fenomena (seperti spiritualitas, makna, nilai) sulit diukur secara kuantitatif murni.</li>
+    </ul>
+  </div>
+
+  <!-- ========================================================== -->
+  <h2>2.3 Variabel Penelitian Kuantitatif</h2>
+  <p>Variabel adalah jantung penelitian kuantitatif. Memahami jenis-jenis variabel dan hubungannya adalah kunci untuk merancang penelitian yang kokoh.</p>
+
+  <h3>2.3.1 Definisi dan Konsep Variabel</h3>
+  <p>Menurut <strong>Kerlinger (1973)</strong>, variabel adalah sifat yang diambil dari nilai-nilai yang beragam — dengan kata lain, sesuatu yang memiliki variasi nilai. <strong>Fraenkel & Wallen (2009)</strong> mendefinisikan variabel sebagai karakteristik yang dapat diukur atau dikategorikan dan memiliki nilai yang bervariasi antar individu atau objek.</p>
+
+  <h3>2.3.2 Jenis-Jenis Variabel</h3>
+  <p>Dalam penelitian kuantitatif, terdapat beberapa jenis variabel yang perlu dipahami:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Jenis Variabel</th>
+        <th>Definisi</th>
+        <th>Simbol</th>
+        <th>Contoh dalam Pendidikan Islam</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Independen (X)</strong></td>
+        <td>Variabel yang memengaruhi atau menjadi sebab perubahan variabel lain</td>
+        <td>X</td>
+        <td>Metode pembelajaran, gaya kepemimpinan, motivasi belajar</td>
+      </tr>
+      <tr>
+        <td><strong>Dependen (Y)</strong></td>
+        <td>Variabel yang dipengaruhi atau menjadi akibat dari variabel independen</td>
+        <td>Y</td>
+        <td>Prestasi belajar, kinerja guru, kepuasan santri</td>
+      </tr>
+      <tr>
+        <td><strong>Moderator (M)</strong></td>
+        <td>Variabel yang memperkuat atau memperlemah hubungan antara X dan Y</td>
+        <td>Z atau M</td>
+        <td>Latar belakang ekonomi, jenis kelamin, budaya organisasi</td>
+      </tr>
+      <tr>
+        <td><strong>Intervening (I)</strong></td>
+        <td>Variabel yang menjadi perantara antara X dan Y (mekanisme proses)</td>
+        <td>I</td>
+        <td>Motivasi, kepuasan kerja, self-efficacy</td>
+      </tr>
+      <tr>
+        <td><strong>Kontrol (C)</strong></td>
+        <td>Variabel yang dikendalikan agar tidak memengaruhi hubungan X-Y</td>
+        <td>C</td>
+        <td>Usia, jenis kelamin, tingkat pendidikan awal</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2.3.3 Diagram Hubungan Antar Variabel</h3>
+
+  <div class="figure">
+    <h4 style="color:var(--gold-2);margin-bottom:16px">Model Hubungan Sederhana</h4>
+    <div class="diagram">
+      <div class="node var-x">Variabel X<br><small>(Independen)</small></div>
+      <div class="arrow">→</div>
+      <div class="node var-y">Variabel Y<br><small>(Dependen)</small></div>
+    </div>
+    <div class="caption">Gambar 2.1. Hubungan langsung X → Y</div>
+  </div>
+
+  <div class="figure">
+    <h4 style="color:var(--gold-2);margin-bottom:16px">Model dengan Variabel Moderator</h4>
+    <div class="diagram">
+      <div class="node var-x">Variabel X</div>
+      <div class="arrow">→</div>
+      <div class="node var-y">Variabel Y</div>
+    </div>
+    <div class="diagram">
+      <div class="node var-m">Variabel Moderator (Z)</div>
+      <div class="arrow">↓</div>
+    </div>
+    <div class="caption">Gambar 2.2. Z memoderasi hubungan X → Y</div>
+  </div>
+
+  <div class="figure">
+    <h4 style="color:var(--gold-2);margin-bottom:16px">Model dengan Variabel Intervening</h4>
+    <div class="diagram">
+      <div class="node var-x">Variabel X</div>
+      <div class="arrow">→</div>
+      <div class="node var-m">Variabel Intervening (I)</div>
+      <div class="arrow">→</div>
+      <div class="node var-y">Variabel Y</div>
+    </div>
+    <div class="caption">Gambar 2.3. X → I → Y (mediasi)</div>
+  </div>
+
+  <h3>2.3.4 Skala Pengukuran Variabel</h3>
+  <p>Variabel diukur menggunakan skala tertentu. Menurut <strong>Stevens (1946)</strong>, terdapat empat skala pengukuran:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Skala</th>
+        <th>Ciri</th>
+        <th>Contoh</th>
+        <th>Statistik yang Cocok</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Nominal</strong></td>
+        <td>Hanya membedakan kategori, tanpa urutan</td>
+        <td>Jenis kelamin (L/P), agama, jurusan</td>
+        <td>Modus, chi-square</td>
+      </tr>
+      <tr>
+        <td><strong>Ordinal</strong></td>
+        <td>Kategori dengan urutan/jenjang</td>
+        <td>Peringkat kelas, tingkat kepuasan</td>
+        <td>Median, Spearman</td>
+      </tr>
+      <tr>
+        <td><strong>Interval</strong></td>
+        <td>Jarak antar nilai sama, tidak ada nol mutlak</td>
+        <td>Suhu, skor IQ, nilai tes</td>
+        <td>Mean, SD, korelasi Pearson</td>
+      </tr>
+      <tr>
+        <td><strong>Rasio</strong></td>
+        <td>Memiliki nol mutlak, dapat dirasiokan</td>
+        <td>Berat, tinggi, pendapatan, jumlah hafalan</td>
+        <td>Semua statistik parametrik</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="block tip">
+    <h4><span class="icon">💡</span> Tips Memilih Variabel</h4>
+    <ul>
+      <li>Pilih variabel yang <strong>relevan dengan masalah penelitian</strong> dan memiliki dasar teoretis yang kuat.</li>
+      <li>Pastikan variabel dapat <strong>diukur secara operasional</strong> — definisikan indikatornya dengan jelas.</li>
+      <li>Gunakan <strong>instrumen yang valid dan reliabel</strong> untuk mengukur variabel.</li>
+      <li>Pertimbangkan <strong>jumlah variabel</strong> — jangan terlalu banyak agar analisis tidak terlalu kompleks.</li>
+      <li>Bedakan dengan tegas antara variabel <strong>moderator</strong> dan <strong>intervening</strong> — keduanya sering dirancukan.</li>
+    </ul>
+  </div>
+
+  <!-- ========================================================== -->
+  <h2>2.4 Desain Penelitian Kuantitatif</h2>
+  <p>Desain penelitian adalah "cetak biru" yang memandu seluruh proses penelitian. Pemilihan desain yang tepat akan menentukan validitas internal dan eksternal hasil penelitian.</p>
+
+  <h3>2.4.1 Penelitian Eksperimen</h3>
+  <p>Penelitian eksperimen bertujuan untuk <strong>menguji hubungan sebab-akibat (kausal)</strong> melalui manipulasi variabel independen dan kontrol terhadap variabel ekstraneus.</p>
+
+  <h4>A. Eksperimen Murni (True Experiment)</h4>
+  <p>Memiliki tiga ciri utama: (1) <em>manipulasi</em> variabel independen, (2) <em>randomisasi</em> subjek ke dalam kelompok, dan (3) <em>kontrol</em> terhadap variabel ekstraneus.</p>
+  <p><strong>Desain umum:</strong></p>
+  <div class="formula">
+    R → X → O₁ (Kelompok Eksperimen)<br>
+    R → — → O₂ (Kelompok Kontrol)
+    <span class="caption">R = random, X = treatment, O = observasi</span>
+  </div>
+  <p><strong>Contoh:</strong> Pengaruh metode pembelajaran <em>problem-based learning</em> terhadap kemampuan berpikir kritis siswa MA. Siswa diacak ke dalam kelompok eksperimen (PBL) dan kontrol (konvensional).</p>
+
+  <h4>B. Kuasi-Eksperimen (Quasi-Experiment)</h4>
+  <p>Tidak memungkinkan randomisasi sempurna — biasanya menggunakan kelompok yang sudah ada (intact groups).</p>
+  <p><strong>Desain umum (Nonequivalent Control Group):</strong></p>
+  <div class="formula">
+    O₁ → X → O₂ (Kelompok Eksperimen)<br>
+    O₃ → — → O₄ (Kelompok Kontrol)
+    <span class="caption">Pre-test → Treatment → Post-test</span>
+  </div>
+  <p><strong>Contoh:</strong> Pengaruh metode <em>talaqqi</em> terhadap kelancaran hafalan Al-Qur'an santri di dua pesantren yang berbeda (tanpa pengacakan santri).</p>
+
+  <h4>C. Pre-Eksperimen</h4>
+  <p>Desain eksperimen paling lemah — tidak ada kelompok kontrol atau randomisasi.</p>
+  <p><strong>One-Group Pretest-Posttest Design:</strong></p>
+  <div class="formula">
+    O₁ → X → O₂
+    <span class="caption">Satu kelompok, diukur sebelum dan sesudah treatment</span>
+  </div>
+
+  <h3>2.4.2 Penelitian Survei</h3>
+  <p>Penelitian survei bertujuan <strong>mendeskripsikan atau menjelaskan karakteristik, sikap, atau opini</strong> dari suatu populasi melalui pengambilan sampel.</p>
+  <p><strong>Ciri khas:</strong></p>
+  <ul>
+    <li>Data dikumpulkan melalui <strong>kuesioner</strong> atau <strong>wawancara terstruktur</strong>.</li>
+    <li>Sampel biasanya <strong>besar dan representatif</strong>.</li>
+    <li>Tujuan: <strong>deskriptif</strong> (menggambarkan kondisi) atau <strong>eksplanatif</strong> (menjelaskan hubungan).</li>
+  </ul>
+  <p><strong>Contoh dalam pendidikan Islam:</strong></p>
+  <ul>
+    <li>Survei kepuasan santri terhadap fasilitas pesantren.</li>
+    <li>Survei persepsi guru PAI terhadap implementasi Kurikulum Merdeka.</li>
+    <li>Survei minat mahasiswa terhadap studi S2 di PTKI.</li>
+  </ul>
+
+  <h3>2.4.3 Penelitian Korelasional</h3>
+  <p>Penelitian korelasional bertujuan <strong>mengukur kekuatan dan arah hubungan</strong> antara dua atau lebih variabel tanpa melakukan manipulasi.</p>
+  <p><strong>Koefisien korelasi (r):</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Nilai r</th>
+        <th>Interpretasi</th>
+        <th>Contoh</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>0,80 – 1,00</td><td>Sangat kuat</td><td>Hubungan motivasi belajar dengan prestasi tahfizh</td></tr>
+      <tr><td>0,60 – 0,79</td><td>Kuat</td><td>Hubungan kepemimpinan kepala dengan kinerja guru</td></tr>
+      <tr><td>0,40 – 0,59</td><td>Sedang</td><td>Hubungan lingkungan belajar dengan minat baca</td></tr>
+      <tr><td>0,20 – 0,39</td><td>Lemah</td><td>Hubungan usia guru dengan penguasaan IT</td></tr>
+      <tr><td>0,00 – 0,19</td><td>Sangat lemah / tidak berkorelasi</td><td>Hubungan tinggi badan dengan prestasi belajar</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Jenis korelasi:</strong></p>
+  <ul>
+    <li><strong>Pearson Product Moment:</strong> untuk data interval/rasio yang berdistribusi normal.</li>
+    <li><strong>Spearman Rank:</strong> untuk data ordinal atau data interval tidak normal.</li>
+    <li><strong>Korelasi Ganda:</strong> hubungan antara beberapa variabel independen dengan satu variabel dependen.</li>
+  </ul>
+
+  <h3>2.4.4 Penelitian Komparatif</h3>
+  <p>Penelitian komparatif bertujuan <strong>membandingkan dua atau lebih kelompok</strong> pada variabel tertentu untuk mengetahui perbedaan yang signifikan.</p>
+  <p><strong>Teknik statistik:</strong></p>
+  <ul>
+    <li><strong>Uji-t (t-test):</strong> membandingkan dua kelompok.</li>
+    <li><strong>ANOVA:</strong> membandingkan tiga kelompok atau lebih.</li>
+    <li><strong>MANOVA:</strong> membandingkan beberapa kelompok pada beberapa variabel dependen.</li>
+  </ul>
+  <p><strong>Contoh:</strong> Perbedaan prestasi belajar fiqih antara santri yang tinggal di asrama dan yang pulang pergi di MA X.</p>
+
+  <h3>2.4.5 Penelitian Ex Post Facto</h3>
+  <p>Penelitian <em>ex post facto</em> (setelah fakta) meneliti hubungan sebab-akibat <strong>tanpa manipulasi</strong> — variabel independen sudah terjadi secara alami.</p>
+  <p><strong>Ciri khas:</strong></p>
+  <ul>
+    <li>Peneliti <strong>tidak memanipulasi</strong> variabel independen.</li>
+    <li>Data dikumpulkan <strong>setelah peristiwa terjadi</strong>.</li>
+    <li>Sering digunakan untuk meneliti <strong>dampak dari suatu kondisi</strong> yang sudah ada.</li>
+  </ul>
+  <p><strong>Contoh:</strong> Pengaruh latar belakang pendidikan orang tua terhadap motivasi belajar anak di madrasah. Latar belakang pendidikan sudah terjadi secara alami, peneliti hanya mengukur dampaknya.</p>
+
+  <h3>2.4.6 Perbandingan Desain Penelitian Kuantitatif</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Desain</th>
+        <th>Tujuan</th>
+        <th>Manipulasi Variabel</th>
+        <th>Analisis Statistik</th>
+        <th>Contoh</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Eksperimen</strong></td>
+        <td>Menguji kausalitas</td>
+        <td>Ya</td>
+        <td>Uji-t, ANOVA</td>
+        <td>Pengaruh metode PBL terhadap berpikir kritis</td>
+      </tr>
+      <tr>
+        <td><strong>Survei</strong></td>
+        <td>Mendeskripsikan kondisi</td>
+        <td>Tidak</td>
+        <td>Statistik deskriptif</td>
+        <td>Survei kepuasan santri</td>
+      </tr>
+      <tr>
+        <td><strong>Korelasional</strong></td>
+        <td>Mengukur hubungan</td>
+        <td>Tidak</td>
+        <td>Korelasi Pearson, regresi</td>
+        <td>Hubungan motivasi dengan prestasi</td>
+      </tr>
+      <tr>
+        <td><strong>Komparatif</strong></td>
+        <td>Membandingkan kelompok</td>
+        <td>Tidak</td>
+        <td>Uji-t, ANOVA</td>
+        <td>Perbedaan prestasi antar kelas</td>
+      </tr>
+      <tr>
+        <td><strong>Ex Post Facto</strong></td>
+        <td>Meneliti dampak pasca-fakta</td>
+        <td>Tidak</td>
+        <td>Regresi, ANOVA</td>
+        <td>Pengaruh latar belakang keluarga terhadap prestasi</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ========================================================== -->
+  <h2>2.5 Hipotesis Penelitian Kuantitatif</h2>
+  <p>Hipotesis adalah <strong>jawaban sementara</strong> terhadap masalah penelitian yang kebenarannya harus diuji secara empiris melalui data.</p>
+
+  <h3>2.5.1 Jenis-Jenis Hipotesis</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Jenis</th>
+        <th>Definisi</th>
+        <th>Contoh</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Hipotesis Nol (H₀)</strong></td>
+        <td>Tidak ada pengaruh/hubungan/perbedaan</td>
+        <td>Tidak ada pengaruh metode PBL terhadap berpikir kritis</td>
+      </tr>
+      <tr>
+        <td><strong>Hipotesis Alternatif (Hₐ)</strong></td>
+        <td>Ada pengaruh/hubungan/perbedaan</td>
+        <td>Ada pengaruh metode PBL terhadap berpikir kritis</td>
+      </tr>
+      <tr>
+        <td><strong>Hipotesis Deskriptif</strong></td>
+        <td>Tentang nilai suatu variabel</td>
+        <td>Rata-rata prestasi tahfizh santri = 80</td>
+      </tr>
+      <tr>
+        <td><strong>Hipotesis Komparatif</strong></td>
+        <td>Tentang perbedaan antar kelompok</td>
+        <td>Ada perbedaan prestasi antara kelas A dan B</td>
+      </tr>
+      <tr>
+        <td><strong>Hipotesis Asosiatif</strong></td>
+        <td>Tentang hubungan antar variabel</td>
+        <td>Ada hubungan motivasi dengan prestasi</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2.5.2 Kriteria Pengujian Hipotesis</h3>
+  <p>Pengujian hipotesis menggunakan <strong>taraf signifikansi (α)</strong> — biasanya 0,05 atau 0,01.</p>
+  <div class="formula">
+    Jika p-value < α → H₀ ditolak, Hₐ diterima<br>
+    Jika p-value ≥ α → H₀ diterima, Hₐ ditolak
+    <span class="caption">Aturan pengambilan keputusan dalam uji hipotesis</span>
+  </div>
+
+  <!-- ========================================================== -->
+  <h2>2.6 Populasi dan Sampel</h2>
+  <p>Populasi dan sampel adalah dua konsep fundamental dalam penelitian kuantitatif. Pemilihan sampel yang tepat menentukan validitas eksternal penelitian.</p>
+
+  <h3>2.6.1 Populasi</h3>
+  <p><strong>Populasi</strong> adalah keseluruhan subjek atau objek yang akan diteliti. Menurut <strong>Sugiyono (2019)</strong>, populasi adalah wilayah generalisasi yang terdiri atas objek/subjek yang mempunyai kualitas dan karakteristik tertentu.</p>
+  <p><strong>Jenis populasi:</strong></p>
+  <ul>
+    <li><strong>Populasi target:</strong> populasi ideal yang ingin digeneralisasi.</li>
+    <li><strong>Populasi terjangkau:</strong> populasi yang benar-benar dapat diakses peneliti.</li>
+  </ul>
+
+  <h3>2.6.2 Sampel</h3>
+  <p><strong>Sampel</strong> adalah sebagian dari populasi yang benar-benar diteliti dan dianggap representatif.</p>
+
+  <h4>A. Teknik Probability Sampling (Acak)</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Teknik</th>
+        <th>Cara</th>
+        <th>Kapan Digunakan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Simple Random</strong></td>
+        <td>Setiap anggota populasi memiliki peluang sama</td>
+        <td>Populasi homogen</td>
+      </tr>
+      <tr>
+        <td><strong>Stratified Random</strong></td>
+        <td>Populasi dibagi strata, lalu diacak per strata</td>
+        <td>Populasi heterogen berstrata</td>
+      </tr>
+      <tr>
+        <td><strong>Cluster Random</strong></td>
+        <td>Populasi dibagi kluster, kluster diacak</td>
+        <td>Populasi tersebar geografis</td>
+      </tr>
+      <tr>
+        <td><strong>Systematic Random</strong></td>
+        <td>Setiap kelipatan ke-n dari populasi</td>
+        <td>Populasi besar, daftar urut</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>B. Teknik Non-Probability Sampling (Tidak Acak)</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Teknik</th>
+        <th>Cara</th>
+        <th>Kapan Digunakan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Purposive</strong></td>
+        <td>Berdasarkan pertimbangan khusus peneliti</td>
+        <td>Subjek dengan karakteristik spesifik</td>
+      </tr>
+      <tr>
+        <td><strong>Snowball</strong></td>
+        <td>Dari sedikit ke banyak (bola salju)</td>
+        <td>Populasi sulit dijangkau</td>
+      </tr>
+      <tr>
+        <td><strong>Accidental</strong></td>
+        <td>Siapa saja yang kebetulan bertemu peneliti</td>
+        <td>Penelitian eksploratif</td>
+      </tr>
+      <tr>
+        <td><strong>Quota</strong></td>
+        <td>Sampel sesuai kuota yang ditentukan</td>
+        <td>Populasi dengan proporsi tertentu</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2.6.3 Menentukan Ukuran Sampel</h3>
+  <p>Beberapa rumus yang sering digunakan:</p>
+
+  <div class="formula">
+    Slovin: n = N / (1 + Ne²)<br>
+    <span class="caption">n = ukuran sampel, N = ukuran populasi, e = taraf kesalahan</span>
+  </div>
+
+  <div class="formula">
+    Isaac & Michael: n = χ² N / ((N-1)d² + χ²)<br>
+    <span class="caption">Untuk taraf kesalahan 1%, 5%, 10%</span>
+  </div>
+
+  <div class="formula">
+    Roscoe (rule of thumb): 30 < n < 500<br>
+    <span class="caption">Sampel minimal 30, maksimal 500 (kecuali pecah sampel)</span>
+  </div>
+
+  <!-- ========================================================== -->
+  <h2>2.7 Contoh Penelitian Kuantitatif dalam Pendidikan Islam</h2>
+  <p>Berikut beberapa contoh penelitian kuantitatif yang relevan dengan bidang pendidikan Islam:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Judul Penelitian</th>
+        <th>Desain</th>
+        <th>Variabel</th>
+        <th>Analisis</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Pengaruh metode <em>talaqqi</em> terhadap kelancaran hafalan Al-Qur'an santri</td>
+        <td>Eksperimen semu</td>
+        <td>X: Metode talaqqi<br>Y: Kelancaran hafalan</td>
+        <td>Uji-t</td>
+      </tr>
+      <tr>
+        <td>Hubungan motivasi belajar dengan prestasi akademik mahasiswa PTKI</td>
+        <td>Korelasional</td>
+        <td>X: Motivasi<br>Y: Prestasi</td>
+        <td>Korelasi Pearson</td>
+      </tr>
+      <tr>
+        <td>Survei kepuasan santri terhadap layanan pesantren modern</td>
+        <td>Survei deskriptif</td>
+        <td>Variabel kepuasan (layanan, fasilitas, kurikulum)</td>
+        <td>Statistik deskriptif</td>
+      </tr>
+      <tr>
+        <td>Perbedaan kinerja guru PAI antara madrasah negeri dan swasta</td>
+        <td>Komparatif</td>
+        <td>X: Status madrasah<br>Y: Kinerja guru</td>
+        <td>Uji-t</td>
+      </tr>
+      <tr>
+        <td>Pengaruh latar belakang pendidikan orang tua terhadap minat lanjut studi santri</td>
+        <td>Ex post facto</td>
+        <td>X: Pendidikan ortu<br>Y: Minat lanjut studi</td>
+        <td>Regresi linear</td>
+      </tr>
+      <tr>
+        <td>Pengaruh kepemimpinan transformasional terhadap kinerja guru dengan budaya organisasi sebagai moderator</td>
+        <td>Korelasional dengan moderator</td>
+        <td>X: Kepemimpinan<br>Y: Kinerja<br>Z: Budaya organisasi</td>
+        <td>Regresi moderat (MRA)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- STUDI KASUS 2 -->
+  <div class="block case">
+    <h4><span class="icon">📖</span> Studi Kasus 2: Penelitian Survei Kepuasan Santri</h4>
+    <p>Sebuah pesantren modern di Jawa ingin mengetahui tingkat kepuasan santri terhadap berbagai aspek layanan: <strong>kurikulum, fasilitas, pembinaan akhlak, dan kegiatan ekstrakurikuler</strong>. Peneliti menggunakan desain <strong>survei deskriptif</strong> dengan populasi 500 santri dan sampel 217 santri (dihitung dengan rumus Slovin, taraf kesalahan 5%).</p>
+    <p>Instrumen menggunakan <strong>skala Likert 5 poin</strong> (1 = Sangat Tidak Puas s.d. 5 = Sangat Puas). Data dianalisis dengan <strong>statistik deskriptif</strong> (mean, standar deviasi) dan <strong>uji chi-square</strong> untuk melihat perbedaan kepuasan antar jenjang pendidikan.</p>
+    <p>Hasil menunjukkan bahwa santri paling puas pada aspek pembinaan akhlak (mean = 4,32) dan paling tidak puas pada aspek fasilitas asrama (mean = 3,18). Temuan ini dijadikan dasar <strong>rekomendasi perbaikan</strong> bagi pengelola pesantren.</p>
+    <p><strong>Pembelajaran:</strong> Penelitian survei memberikan gambaran komprehensif tentang kondisi objektif yang dapat dijadikan dasar pengambilan keputusan manajerial.</p>
+  </div>
+
+  <!-- ========================================================== -->
+  <h2>2.8 Etika Penelitian Kuantitatif</h2>
+  <p>Penelitian kuantitatif juga terikat pada etika penelitian yang ketat:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Prinsip Etika</th>
+        <th>Implementasi dalam Kuantitatif</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Informed Consent</strong></td>
+        <td>Subjek penelitian memberikan persetujuan tertulis sebelum berpartisipasi</td>
+      </tr>
+      <tr>
+        <td><strong>Anonimitas</strong></td>
+        <td>Identitas subjek dirahasiakan dalam pelaporan</td>
+      </tr>
+      <tr>
+        <td><strong>Kerahasiaan Data</strong></td>
+        <td>Data disimpan dengan aman, tidak disalahgunakan</td>
+      </tr>
+      <tr>
+        <td><strong>Kejujuran Statistik</strong></td>
+        <td>Tidak memanipulasi data atau memilih teknik statistik yang menguntungkan</td>
+      </tr>
+      <tr>
+        <td><strong>Objektivitas</strong></td>
+        <td>Peneliti melaporkan hasil apa adanya, sesuai data</td>
+      </tr>
+      <tr>
+        <td><strong>Transparansi Metodologi</strong></td>
+        <td>Metode, instrumen, dan analisis dijelaskan secara rinci agar dapat direplikasi</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ========================================================== -->
+  <h2>2.9 Tantangan Penelitian Kuantitatif dalam Pendidikan Islam</h2>
+
+  <h3>2.9.1 Tantangan</h3>
+  <ul>
+    <li><strong>Reduksionisme:</strong> kecenderungan menyederhanakan fenomena spiritual menjadi sekadar angka.</li>
+    <li><strong>Keterbatasan instrumen:</strong> banyak aspek pendidikan Islam (seperti spiritualitas, akhlak) sulit diukur secara kuantitatif murni.</li>
+    <li><strong>Bias budaya:</strong> instrumen yang dikembangkan di Barat mungkin tidak valid dalam konteks Islam.</li>
+    <li><strong>Keterbatasan akses data:</strong> beberapa lembaga pendidikan Islam enggan membuka data.</li>
+    <li><strong>Kompleksitas analisis:</strong> membutuhkan penguasaan statistik yang memadai.</li>
+  </ul>
+
+  <h3>2.9.2 Peluang</h3>
+  <ul>
+    <li><strong>Software canggih:</strong> SPSS, AMOS, SmartPLS memudahkan analisis statistik kompleks.</li>
+    <li><strong>Open data:</strong> tren berbagi data penelitian semakin terbuka.</li>
+    <li><strong>Publikasi internasional:</strong> penelitian kuantitatif lebih mudah diterima jurnal global.</li>
+    <li><strong>Integrasi metode:</strong> mixed methods memungkinkan memadukan kekuatan kuantitatif dan kualitatif.</li>
+    <li><strong>Kolaborasi multidisiplin:</strong> penelitian kuantitatif membuka peluang kolaborasi dengan ilmu sosial lain.</li>
+  </ul>
+
+  <!-- TIPS -->
+  <div class="block tip">
+    <h4><span class="icon">💡</span> Tips Praktis untuk Peneliti Kuantitatif Pemula</h4>
+    <ul>
+      <li>Mulailah dengan <strong>membaca jurnal kuantitatif</strong> di bidang pendidikan Islam untuk memahami pola penelitian.</li>
+      <li>Kuasai minimal <strong>satu software statistik</strong> (SPSS paling ramah pemula).</li>
+      <li>Pelajari <strong>asumsi dasar statistik</strong> (normalitas, linearitas, homoskedastisitas) sebelum analisis.</li>
+      <li>Gunakan <strong>instrumen yang sudah teruji validitas dan reliabilitasnya</strong> — atau uji sendiri sebelum digunakan.</li>
+      <li>Konsultasikan <strong>desain penelitian</strong> dengan dosen pembimbing sebelum turun ke lapangan.</li>
+      <li>Jangan takut dengan angka — <strong>angka adalah teman</strong> yang membantu kita memahami realitas.</li>
+    </ul>
+  </div>
+
+  <div class="block warn">
+    <h4><span class="icon">⚠️</span> Kesalahan Umum Peneliti Kuantitatif Pemula</h4>
+    <ul>
+      <li>Memilih desain penelitian <strong>tanpa memahami perbedaan mendasar</strong> antar desain.</li>
+      <li>Mengabaikan <strong>asumsi statistik</strong> — langsung menggunakan uji parametrik tanpa uji prasyarat.</li>
+      <li>Menggunakan sampel <strong>yang tidak representatif</strong> sehingga generalisasi tidak valid.</li>
+      <li>Menginterpretasikan <strong>korelasi sebagai kausalitas</strong> — padahal korelasi ≠ sebab-akibat.</li>
+      <li>Memalsukan atau <strong>memanipulasi data</strong> agar hipotesis diterima — pelanggaran etika berat.</li>
+      <li>Tidak melakukan <strong>uji validitas dan reliabilitas</strong> instrumen sebelum pengumpulan data.</li>
+      <li>Menulis laporan <strong>tanpa struktur IMRAD</strong> (Introduction, Methods, Results, and Discussion).</li>
+    </ul>
+  </div>
+
+  <!-- ========================================================== -->
+  <h2>Kesimpulan</h2>
+  <p>Pada pertemuan kedua ini, kita telah menyelami dunia <strong>penelitian kuantitatif</strong> — sebuah pendekatan yang berakar pada paradigma positivisme dan post-positivisme, dengan ciri khas penggunaan data numerik, analisis statistik, dan tujuan generalisasi. Kita telah memahami <strong>ciri-ciri</strong> penelitian kuantitatif, mengenal berbagai <strong>jenis variabel</strong> (independen, dependen, moderator, intervening, kontrol), serta mengeksplorasi <strong>desain-desain penelitian</strong> seperti eksperimen, survei, korelasional, komparatif, dan ex post facto.</p>
+
+  <p>Kita juga telah mempelajari pentingnya <strong>hipotesis</strong>, <strong>populasi dan sampel</strong>, serta <strong>etika penelitian kuantitatif</strong>. Dalam konteks pendidikan Islam, pendekatan kuantitatif memiliki peran strategis untuk menjawab problematika pendidikan secara objektif dan terukur — dari mengukur efektivitas metode pembelajaran tahfizh hingga mengevaluasi dampak program beasiswa santri.</p>
+
+  <p>Sebagai peneliti muslim, kita harus menjaga prinsip <strong>kejujuran, objektivitas, dan amanah</strong> dalam setiap langkah penelitian kuantitatif. Angka bukanlah tujuan, melainkan alat untuk memahami realitas dan memberikan kontribusi bagi kemaslahatan ummat.</p>
+
+  <p>Pada pertemuan selanjutnya, kita akan mendalami <strong>penyusunan instrumen penelitian kuantitatif</strong> — kuesioner, skala, validitas, dan reliabilitas. Siapkan diri Anda untuk memasuki dunia pengukuran yang presisi!</p>
+
+  <!-- DAFTAR PUSTAKA -->
+  <h2>📚 Daftar Pustaka</h2>
+  <ul style="list-style:none;margin-left:0">
+    <li style="margin-bottom:10px">Arikunto, S. (2013). <em>Prosedur Penelitian: Suatu Pendekatan Praktik</em>. Jakarta: Rineka Cipta.</li>
+    <li style="margin-bottom:10px">Campbell, D. T., & Stanley, J. C. (1963). <em>Experimental and Quasi-Experimental Designs for Research</em>. Chicago: Rand McNally.</li>
+    <li style="margin-bottom:10px">Creswell, J. W. (2014). <em>Research Design: Qualitative, Quantitative, and Mixed Methods Approaches</em> (4th ed.). Thousand Oaks: SAGE.</li>
+    <li style="margin-bottom:10px">Cooper, D. R., & Schindler, P. S. (2014). <em>Business Research Methods</em> (12th ed.). New York: McGraw-Hill.</li>
+    <li style="margin-bottom:10px">Fraenkel, J. R., & Wallen, N. E. (2009). <em>How to Design and Evaluate Research in Education</em> (7th ed.). Boston: McGraw-Hill.</li>
+    <li style="margin-bottom:10px">Guba, E. G., & Lincoln, Y. S. (1994). Competing paradigms in qualitative research. In N. K. Denzin & Y. S. Lincoln (Eds.), <em>Handbook of Qualitative Research</em> (pp. 105–117). Thousand Oaks: SAGE.</li>
+    <li style="margin-bottom:10px">Kerlinger, F. N. (1973). <em>Foundations of Behavioral Research</em> (2nd ed.). New York: Holt, Rinehart and Winston.</li>
+    <li style="margin-bottom:10px">Nazir, M. (2014). <em>Metode Penelitian</em>. Jakarta: Ghalia Indonesia.</li>
+    <li style="margin-bottom:10px">Rahmi, U. (2024). <em>Metodologi Penelitian Pendidikan Islam</em>. Bukittinggi: FTIK UIN Bukittinggi.</li>
+    <li style="margin-bottom:10px">Sekaran, U., & Bougie, R. (2016). <em>Research Methods for Business: A Skill-Building Approach</em> (7th ed.). Chichester: Wiley.</li>
+    <li style="margin-bottom:10px">Stevens, S. S. (1946). On the theory of scales of measurement. <em>Science</em>, 103(2684), 677–680.</li>
+    <li style="margin-bottom:10px">Sugiyono. (2019). <em>Metode Penelitian Kuantitatif, Kualitatif, dan R&D</em>. Bandung: Alfabeta.</li>
+    <li style="margin-bottom:10px">Sukmadinata, S. (2011). <em>Metode Penelitian Pendidikan</em>. Bandung: Remaja Rosdakarya.</li>
+  </ul>
+
+</main>
+
+<div class="bab-footer">
+  <a href="index.html" class="back">← Kembali ke Daftar Pertemuan</a>
+  <a href="3.html" class="next">Pertemuan 3: Penyusunan Instrumen Kuantitatif →</a>
+</div>
+
+<!-- ============ UJI FORMATIF ============ -->
+<section class="quiz-section" id="quiz">
+  <div class="quiz-wrap">
+
+    <div class="quiz-head">
+      <div class="eyebrow">Evaluasi Pembelajaran</div>
+      <h2>Uji Formatif <em>Pertemuan 2</em></h2>
+      <p>Uji pemahaman Anda tentang hakikat penelitian kuantitatif, ciri-ciri, jenis variabel, desain penelitian, hipotesis, serta populasi dan sampel.</p>
+      <div class="quiz-meta">
+        <span>📝 10 Soal PG</span>
+        <span>✍️ 5 Soal Essay</span>
+        <span>⏱️ Skor 100</span>
+      </div>
+    </div>
+
+    <div class="quiz-card">
+      <h3>📋 Data Mahasiswa</h3>
+      <div class="warn-text">⚠️ Mohon lengkapi semua data terlebih dahulu sebelum mengerjakan soal!</div>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>Nama Lengkap *</label>
+          <input type="text" id="nama" required>
+        </div>
+        <div class="form-group">
+          <label>NIM *</label>
+          <input type="text" id="nim" required>
+        </div>
+        <div class="form-group">
+          <label>📅 Tanggal Ujian</label>
+          <input type="date" id="tanggal">
+        </div>
+        <div class="form-group">
+          <label>Fakultas</label>
+          <input type="text" id="fakultas" value="FTIK">
+        </div>
+        <div class="form-group">
+          <label>Jurusan / Prodi</label>
+          <input type="text" id="prodi" value="S2 Manajemen Pendidikan Islam">
+        </div>
+        <div class="form-group">
+          <label>Konsentrasi</label>
+          <input type="text" id="konsentrasi">
+        </div>
+        <div class="form-group">
+          <label>Semester</label>
+          <select id="semester">
+            <option value="">Pilih Semester</option>
+            <option>Semester 1</option><option>Semester 2</option>
+            <option>Semester 3</option><option>Semester 4</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Kelas</label>
+          <input type="text" id="kelas">
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-card">
+      <h3>📋 Bagian A – Pilihan Ganda</h3>
+      <div class="warn-text">⚠️ Mohon lengkapi semua 10 soal pilihan ganda terlebih dahulu!</div>
+
+      <div class="question" data-correct="b">
+        <span class="q-num">Soal 1 · 10 poin</span>
+        <div class="q-text">Menurut Sugiyono (2019), penelitian kuantitatif berlandaskan pada filsafat...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q1" id="q1a" value="a"><label for="q1a">a. Konstruktivisme</label></div>
+          <div class="option"><input type="radio" name="q1" id="q1b" value="b"><label for="q1b">b. Positivisme</label></div>
+          <div class="option"><input type="radio" name="q1" id="q1c" value="c"><label for="q1c">c. Pragmatisme</label></div>
+          <div class="option"><input type="radio" name="q1" id="q1d" value="d"><label for="q1d">d. Kritis</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="c">
+        <span class="q-num">Soal 2 · 10 poin</span>
+        <div class="q-text">Variabel yang memengaruhi atau menjadi sebab perubahan variabel lain disebut variabel...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q2" id="q2a" value="a"><label for="q2a">a. Dependen</label></div>
+          <div class="option"><input type="radio" name="q2" id="q2b" value="b"><label for="q2b">b. Moderator</label></div>
+          <div class="option"><input type="radio" name="q2" id="q2c" value="c"><label for="q2c">c. Independen</label></div>
+          <div class="option"><input type="radio" name="q2" id="q2d" value="d"><label for="q2d">d. Intervening</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="a">
+        <span class="q-num">Soal 3 · 10 poin</span>
+        <div class="q-text">Desain penelitian yang bertujuan menguji hubungan sebab-akibat melalui manipulasi variabel dan randomisasi adalah...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q3" id="q3a" value="a"><label for="q3a">a. Eksperimen murni</label></div>
+          <div class="option"><input type="radio" name="q3" id="q3b" value="b"><label for="q3b">b. Survei</label></div>
+          <div class="option"><input type="radio" name="q3" id="q3c" value="c"><label for="q3c">c. Korelasional</label></div>
+          <div class="option"><input type="radio" name="q3" id="q3d" value="d"><label for="q3d">d. Ex post facto</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="d">
+        <span class="q-num">Soal 4 · 10 poin</span>
+        <div class="q-text">Nilai koefisien korelasi r = 0,85 menunjukkan hubungan antar variabel bersifat...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q4" id="q4a" value="a"><label for="q4a">a. Lemah</label></div>
+          <div class="option"><input type="radio" name="q4" id="q4b" value="b"><label for="q4b">b. Sedang</label></div>
+          <div class="option"><input type="radio" name="q4" id="q4c" value="c"><label for="q4c">c. Kuat</label></div>
+          <div class="option"><input type="radio" name="q4" id="q4d" value="d"><label for="q4d">d. Sangat kuat</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="b">
+        <span class="q-num">Soal 5 · 10 poin</span>
+        <div class="q-text">Variabel yang menjadi perantara antara variabel independen dan dependen disebut variabel...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q5" id="q5a" value="a"><label for="q5a">a. Moderator</label></div>
+          <div class="option"><input type="radio" name="q5" id="q5b" value="b"><label for="q5b">b. Intervening</label></div>
+          <div class="option"><input type="radio" name="q5" id="q5c" value="c"><label for="q5c">c. Kontrol</label></div>
+          <div class="option"><input type="radio" name="q5" id="q5d" value="d"><label for="q5d">d. Dependen</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="c">
+        <span class="q-num">Soal 6 · 10 poin</span>
+        <div class="q-text">Rumus Slovin untuk menentukan ukuran sampel adalah...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q6" id="q6a" value="a"><label for="q6a">a. n = N × e²</label></div>
+          <div class="option"><input type="radio" name="q6" id="q6b" value="b"><label for="q6b">b. n = N / (1 - Ne²)</label></div>
+          <div class="option"><input type="radio" name="q6" id="q6c" value="c"><label for="q6c">c. n = N / (1 + Ne²)</label></div>
+          <div class="option"><input type="radio" name="q6" id="q6d" value="d"><label for="q6d">d. n = N + e²</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="a">
+        <span class="q-num">Soal 7 · 10 poin</span>
+        <div class="q-text">Teknik sampling yang membagi populasi ke dalam strata-strata tertentu kemudian diacak per strata disebut...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q7" id="q7a" value="a"><label for="q7a">a. Stratified random sampling</label></div>
+          <div class="option"><input type="radio" name="q7" id="q7b" value="b"><label for="q7b">b. Cluster random sampling</label></div>
+          <div class="option"><input type="radio" name="q7" id="q7c" value="c"><label for="q7c">c. Simple random sampling</label></div>
+          <div class="option"><input type="radio" name="q7" id="q7d" value="d"><label for="q7d">d. Purposive sampling</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="d">
+        <span class="q-num">Soal 8 · 10 poin</span>
+        <div class="q-text">Dalam pengujian hipotesis, jika p-value < 0,05 maka keputusan yang tepat adalah...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q8" id="q8a" value="a"><label for="q8a">a. H₀ diterima, Hₐ ditolak</label></div>
+          <div class="option"><input type="radio" name="q8" id="q8b" value="b"><label for="q8b">b. H₀ dan Hₐ keduanya diterima</label></div>
+          <div class="option"><input type="radio" name="q8" id="q8c" value="c"><label for="q8c">c. H₀ dan Hₐ keduanya ditolak</label></div>
+          <div class="option"><input type="radio" name="q8" id="q8d" value="d"><label for="q8d">d. H₀ ditolak, Hₐ diterima</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="b">
+        <span class="q-num">Soal 9 · 10 poin</span>
+        <div class="q-text">Penelitian yang meneliti hubungan sebab-akibat tanpa manipulasi variabel (karena peristiwa sudah terjadi) disebut penelitian...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q9" id="q9a" value="a"><label for="q9a">a. Eksperimen</label></div>
+          <div class="option"><input type="radio" name="q9" id="q9b" value="b"><label for="q9b">b. Ex post facto</label></div>
+          <div class="option"><input type="radio" name="q9" id="q9c" value="c"><label for="q9c">c. Survei</label></div>
+          <div class="option"><input type="radio" name="q9" id="q9d" value="d"><label for="q9d">d. Korelasional</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="c">
+        <span class="q-num">Soal 10 · 10 poin</span>
+        <div class="q-text">Tokoh yang mengembangkan teori probabilitas dan menjadi pelopor statistik modern adalah...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q10" id="q10a" value="a"><label for="q10a">a. Auguste Comte</label></div>
+          <div class="option"><input type="radio" name="q10" id="q10b" value="b"><label for="q10b">b. Ronald Fisher</label></div>
+          <div class="option"><input type="radio" name="q10" id="q10c" value="c"><label for="q10c">c. Karl Pearson</label></div>
+          <div class="option"><input type="radio" name="q10" id="q10d" value="d"><label for="q10d">d. Campbell & Stanley</label></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-card">
+      <h3>✍️ Bagian B – Essay</h3>
+      <div class="warn-text">⚠️ Mohon isi semua 5 soal essay dengan jawaban yang komprehensif!</div>
+
+      <div class="question">
+        <span class="q-num">Soal 1 · 20 poin</span>
+        <div class="q-text">Jelaskan secara komprehensif hakikat penelitian kuantitatif menurut minimal 3 ahli, dan sintesislah unsur-unsur fundamental yang membentuk penelitian kuantitatif!</div>
+        <textarea class="essay" data-q="1" placeholder="Tuliskan jawaban Anda di sini..."></textarea>
+      </div>
+
+      <div class="question">
+        <span class="q-num">Soal 2 · 20 poin</span>
+        <div class="q-text">Bandingkan dan kontraskan lima jenis desain penelitian kuantitatif (eksperimen, survei, korelasional, komparatif, ex post facto) dari segi tujuan, manipulasi variabel, dan analisis statistik! Berikan contoh penerapannya dalam penelitian pendidikan Islam!</div>
+        <textarea class="essay" data-q="2" placeholder="Tuliskan jawaban Anda di sini..."></textarea>
+      </div>
+
+      <div class="question">
+        <span class="q-num">Soal 3 · 20 poin</span>
+        <div class="q-text">Jelaskan perbedaan antara variabel moderator dan variabel intervening! Berikan masing-masing dua contoh dalam konteks penelitian pendidikan Islam, dan gambarkan diagram hubungannya!</div>
+        <textarea class="essay" data-q="3" placeholder="Tuliskan jawaban Anda di sini..."></textarea>
+      </div>
+
+      <div class="question">
+        <span class="q-num">Soal 4 · 20 poin</span>
+        <div class="q-text">Sebuah penelitian berjudul "Pengaruh Kepemimpinan Transformasional Kepala Madrasah terhadap Kinerja Guru dengan Budaya Organisasi sebagai Variabel Moderator". Identifikasi variabel-variabel dalam penelitian tersebut, rumuskan hipotesis (H₀ dan Hₐ), dan tentukan desain penelitian yang paling tepat!</div>
+        <textarea class="essay" data-q="4" placeholder="Tuliskan jawaban Anda di sini..."></textarea>
+      </div>
+
+      <div class="question">
+        <span class="q-num">Soal 5 · 20 poin</span>
+        <div class="q-text">Rancang sebuah ide penelitian kuantitatif sederhana di lingkungan pendidikan Islam yang Anda kenal! Jelaskan masalah, variabel, desain, populasi-sampel, dan teknik analisis yang akan digunakan! Analisislah potensi tantangan etis dalam penelitian tersebut!</div>
+        <textarea class="essay" data-q="5" placeholder="Tuliskan jawaban Anda di sini..."></textarea>
+      </div>
+    </div>
+
+    <div class="score-box" id="scoreBox">
+      <h3>📊 Hasil Uji Formatif</h3>
+      <div class="score-display" id="totalScore">0</div>
+      <p style="color:var(--muted);font-size:.9rem">dari 100 poin</p>
+      <div class="score-detail">
+        <div><div class="num" id="scorePG">0</div><div class="lbl">Bagian A (PG)</div></div>
+        <div><div class="num" id="scoreEssay">0</div><div class="lbl">Bagian B (Essay)</div></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="downloadPDF()">📥 Unduh PDF Lengkap</button>
+        <button class="btn btn-ghost" onclick="downloadScore()">📊 Unduh Skor Saja</button>
+        <button class="btn btn-ghost" onclick="sendEmail()">✉️ Kirim Email Dosen</button>
+        <button class="btn btn-danger" onclick="resetQuiz()">🔄 Mulai Ulang</button>
+      </div>
+    </div>
+
+    <div class="btn-row" style="margin-top:30px">
+      <button class="btn btn-primary" onclick="submitQuiz()" id="submitBtn">✉️ KIRIM JAWABAN & LIHAT HASIL</button>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="brand">Metodologi Penelitian — S2 MPI</div>
+  <p>FTIK UIN Bukittinggi · © 2026 Dr. Ulva Rahmi, S.Ag., M.Pd</p>
+  <p style="margin-top:6px;font-size:.75rem;opacity:.6">Pertemuan 2 — Penelitian Kuantitatif: Ciri, Variabel, dan Desain</p>
+</footer>
+
+<script>
+function submitQuiz(){
+  const nama=document.getElementById('nama').value.trim();
+  const nim=document.getElementById('nim').value.trim();
+  if(!nama||!nim){alert('⚠️ Mohon lengkapi Nama dan NIM terlebih dahulu!');return}
+
+  let allPG=true;
+  for(let i=1;i<=10;i++){
+    if(!document.querySelector(`input[name="q${i}"]:checked`)){allPG=false;break}
+  }
+  if(!allPG){alert('⚠️ Mohon jawab semua 10 soal pilihan ganda terlebih dahulu!');return}
+
+  const essays=document.querySelectorAll('.essay');
+  let allEssay=true;
+  essays.forEach(e=>{if(!e.value.trim())allEssay=false});
+  if(!allEssay){alert('⚠️ Mohon isi semua 5 soal essay terlebih dahulu!');return}
+
+  let scorePG=0;
+  document.querySelectorAll('.question[data-correct]').forEach(q=>{
+    const correct=q.dataset.correct;
+    const selected=q.querySelector('input[type="radio"]:checked');
+    q.querySelectorAll('.option').forEach(o=>o.classList.remove('correct','wrong'));
+    if(selected){
+      const parent=selected.closest('.option');
+      if(selected.value===correct){
+        scorePG+=10;
+        parent.classList.add('correct');
+      } else {
+        parent.classList.add('wrong');
+        q.querySelectorAll('.option').forEach(o=>{
+          const inp=o.querySelector('input');
+          if(inp.value===correct)o.classList.add('correct');
+        });
+      }
+    }
+  });
+
+  let scoreEssay=0;
+  essays.forEach(e=>{
+    if(e.value.trim().length>50)scoreEssay+=20;
+  });
+
+  const total=scorePG+scoreEssay;
+  document.getElementById('scorePG').textContent=scorePG+'/100';
+  document.getElementById('scoreEssay').textContent=scoreEssay+'/100';
+  document.getElementById('totalScore').textContent=total;
+  document.getElementById('scoreBox').classList.add('show');
+  document.getElementById('scoreBox').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function resetQuiz(){
+  if(!confirm('Yakin ingin mengulang ujian? Semua jawaban akan dihapus.'))return;
+  document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.essay').forEach(e=>e.value='');
+  document.querySelectorAll('.option').forEach(o=>o.classList.remove('correct','wrong'));
+  document.getElementById('scoreBox').classList.remove('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function downloadPDF(){
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF();
+  const nama=document.getElementById('nama').value;
+  const nim=document.getElementById('nim').value;
+  const tgl=document.getElementById('tanggal').value||new Date().toISOString().split('T')[0];
+  const prodi=document.getElementById('prodi').value;
+  const scorePG=document.getElementById('scorePG').textContent;
+  const scoreEssay=document.getElementById('scoreEssay').textContent;
+  const total=document.getElementById('totalScore').textContent;
+
+  doc.setFontSize(16);doc.setFont('helvetica','bold');
+  doc.text('HASIL UJI FORMATIF',105,20,{align:'center'});
+  doc.setFontSize(11);doc.setFont('helvetica','normal');
+  doc.text('Metodologi Penelitian - Pertemuan 2',105,28,{align:'center'});
+  doc.text('Penelitian Kuantitatif: Ciri, Variabel, dan Desain',105,34,{align:'center'});
+
+  doc.line(20,40,190,40);
+  doc.setFontSize(10);
+  let y=50;
+  doc.text(`Nama       : ${nama}`,20,y);y+=6;
+  doc.text(`NIM        : ${nim}`,20,y);y+=6;
+  doc.text(`Tanggal    : ${tgl}`,20,y);y+=6;
+  doc.text(`Program    : ${prodi}`,20,y);y+=6;
+  doc.text(`Institusi   : FTIK UIN Bukittinggi`,20,y);y+=10;
+
+  doc.line(20,y,190,y);y+=8;
+  doc.setFont('helvetica','bold');
+  doc.text('HASIL PENILAIAN',20,y);y+=8;
+  doc.setFont('helvetica','normal');
+  doc.text(`Bagian A (Pilihan Ganda) : ${scorePG}`,20,y);y+=6;
+  doc.text(`Bagian B (Essay)         : ${scoreEssay}`,20,y);y+=6;
+  doc.setFont('helvetica','bold');
+  doc.text(`TOTAL SKOR               : ${total} / 200`,20,y);y+=12;
+
+  doc.setFont('helvetica','normal');doc.setFontSize(9);
+  doc.text('Jawaban Essay:',20,y);y+=6;
+  document.querySelectorAll('.essay').forEach((e,i)=>{
+    const lines=doc.splitTextToSize(`${i+1}. ${e.value}`,170);
+    if(y+lines.length*5>280){doc.addPage();y=20}
+    doc.text(lines,20,y);y+=lines.length*5+3;
+  });
+
+  doc.save(`UjiFormatif_P2_${nim}_${nama.replace(/\s+/g,'_')}.pdf`);
+}
+
+function downloadScore(){
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF();
+  const nama=document.getElementById('nama').value;
+  const nim=document.getElementById('nim').value;
+  const tgl=document.getElementById('tanggal').value||new Date().toISOString().split('T')[0];
+  const scorePG=document.getElementById('scorePG').textContent;
+  const scoreEssay=document.getElementById('scoreEssay').textContent;
+  const total=document.getElementById('totalScore').textContent;
+
+  doc.setFontSize(14);doc.setFont('helvetica','bold');
+  doc.text('LEMBAR SKOR UJI FORMATIF',105,25,{align:'center'});
+  doc.setFontSize(10);doc.setFont('helvetica','normal');
+  doc.text('Metodologi Penelitian - Pertemuan 2',105,33,{align:'center'});
+  doc.line(20,40,190,40);
+  let y=55;
+  doc.text(`Nama    : ${nama}`,20,y);y+=8;
+  doc.text(`NIM     : ${nim}`,20,y);y+=8;
+  doc.text(`Tanggal : ${tgl}`,20,y);y+=12;
+  doc.line(20,y,190,y);y+=10;
+  doc.setFont('helvetica','bold');
+  doc.text('SKOR:',20,y);y+=10;
+  doc.setFontSize(12);
+  doc.text(`Bagian A (PG)     : ${scorePG}`,25,y);y+=8;
+  doc.text(`Bagian B (Essay)  : ${scoreEssay}`,25,y);y+=8;
+  doc.setFontSize(14);
+  doc.text(`TOTAL             : ${total} / 200`,25,y);y+=15;
+  doc.setFontSize(9);doc.setFont('helvetica','normal');
+  doc.text('Divalidasi oleh: Dr. Ulva Rahmi, S.Ag., M.Pd',20,y+20);
+
+  doc.save(`Skor_P2_${nim}.pdf`);
+}
+
+function sendEmail(){
+  const nama=document.getElementById('nama').value;
+  const nim=document.getElementById('nim').value;
+  const scorePG=document.getElementById('scorePG').textContent;
+  const scoreEssay=document.getElementById('scoreEssay').textContent;
+  const total=document.getElementById('totalScore').textContent;
+  const subject=encodeURIComponent(`Hasil Uji Formatif P2 - ${nama} (${nim})`);
+  const body=encodeURIComponent(
+    `Yth. Dr. Ulva Rahmi, S.Ag., M.Pd\n\n`+
+    `Berikut hasil Uji Formatif Pertemuan 2 - Metodologi Penelitian:\n\n`+
+    `Materi: Penelitian Kuantitatif: Ciri, Variabel, dan Desain\n\n`+
+    `Nama    : ${nama}\n`+
+    `NIM     : ${nim}\n`+
+    `Bagian A (PG)     : ${scorePG}\n`+
+    `Bagian B (Essay)  : ${scoreEssay}\n`+
+    `TOTAL             : ${total} / 200\n\n`+
+    `Terima kasih.\nHormat saya,\n${nama}`
+  );
+  window.location.href=`mailto:ulvarahmi@uinbukittinggi.ac.id?subject=${subject}&body=${body}`;
+}
+</script>
+</body>
+</html>
