@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pertemuan 1 — Hakikat Penelitian & Kedudukannya dalam Pendidikan Islam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --bg-0:#0a0a0f;
+    --bg-1:#11111a;
+    --bg-2:#1a1a26;
+    --bg-3:#22222f;
+    --gold:#c9a961;
+    --gold-2:#e8c987;
+    --gold-soft:rgba(201,169,97,.12);
+    --text:#e9e6df;
+    --muted:#9a9689;
+    --line:rgba(201,169,97,.22);
+    --danger:#e57373;
+    --success:#81c784;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg-0);
+    color:var(--text);
+    line-height:1.75;
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 15% 5%, rgba(201,169,97,.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(201,169,97,.04), transparent 40%);
+  }
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    padding:16px 6%;
+    display:flex;justify-content:space-between;align-items:center;
+    backdrop-filter:blur(14px);
+    background:rgba(10,10,15,.7);
+    border-bottom:1px solid var(--line);
+  }
+  .nav .brand{
+    font-family:'Playfair Display',serif;
+    font-size:1.15rem;font-weight:600;letter-spacing:2px;color:var(--gold-2);
+  }
+  .nav .brand span{color:var(--text);font-style:italic;font-weight:400}
+  .nav ul{display:flex;gap:28px;list-style:none}
+  .nav ul a{
+    color:var(--muted);text-decoration:none;font-size:.8rem;
+    letter-spacing:1.5px;text-transform:uppercase;transition:.3s;
+  }
+  .nav ul a:hover{color:var(--gold-2)}
+  @media(max-width:720px){.nav ul{display:none}}
+
+  .bab-hero{
+    padding:140px 6% 70px;
+    text-align:center;
+    position:relative;
+    border-bottom:1px solid var(--line);
+  }
+  .bab-hero::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent,rgba(201,169,97,.04),transparent);
+    pointer-events:none;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:12px;
+    color:var(--gold);font-size:.75rem;letter-spacing:4px;text-transform:uppercase;
+    margin-bottom:22px;
+  }
+  .eyebrow::before,.eyebrow::after{content:"";width:30px;height:1px;background:var(--gold)}
+  .bab-hero .bab-num{
+    font-family:'Playfair Display',serif;font-style:italic;
+    font-size:1.1rem;color:var(--gold-2);margin-bottom:14px;
+  }
+  .bab-hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,4.5vw,3.6rem);
+    font-weight:700;line-height:1.15;
+    background:linear-gradient(135deg,#fff 0%,var(--gold-2) 60%,var(--gold) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    margin-bottom:20px;max-width:900px;margin-left:auto;margin-right:auto;
+  }
+  .bab-hero h1 em{font-style:italic;font-weight:400;color:var(--gold-2);-webkit-text-fill-color:var(--gold-2)}
+  .bab-hero .subtitle{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.2rem;font-style:italic;color:var(--muted);
+    max-width:720px;margin:0 auto 34px;
+  }
+  .bab-nav{
+    display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+  }
+  .bab-nav a{
+    padding:10px 22px;border-radius:50px;
+    font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;
+    text-decoration:none;transition:.35s;
+  }
+  .bab-nav .back{background:transparent;color:var(--gold-2);border:1px solid var(--gold)}
+  .bab-nav .back:hover{background:var(--gold-soft)}
+  .bab-nav .next{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#1a1a26;font-weight:600}
+  .bab-nav .next:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(201,169,97,.3)}
+
+  .content{
+    max-width:920px;margin:0 auto;padding:70px 6%;
+  }
+  .content h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.6rem,3vw,2.2rem);
+    font-weight:600;color:#fff;margin:50px 0 20px;
+    padding-bottom:12px;border-bottom:1px solid var(--line);
+  }
+  .content h2 em{font-style:italic;color:var(--gold-2);font-weight:400}
+  .content h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.5rem;font-weight:600;color:var(--gold-2);
+    margin:36px 0 14px;
+  }
+  .content h4{
+    font-family:'Inter',sans-serif;
+    font-size:1.05rem;font-weight:600;color:#fff;
+    margin:22px 0 10px;letter-spacing:.5px;
+  }
+  .content p{margin-bottom:16px;color:var(--text);font-size:1rem}
+  .content p.lead{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.25rem;font-style:italic;color:var(--muted);
+    border-left:2px solid var(--gold);padding-left:20px;margin-bottom:28px;
+  }
+  .content ul,.content ol{margin:12px 0 20px 24px;color:var(--text)}
+  .content li{margin-bottom:8px}
+  .content strong{color:var(--gold-2);font-weight:600}
+  .content a{color:var(--gold-2);text-decoration:none;border-bottom:1px dotted var(--gold)}
+  .content a:hover{color:var(--gold)}
+
+  .block{
+    padding:26px 28px;border-radius:14px;margin:26px 0;
+    border:1px solid var(--line);
+    background:linear-gradient(145deg,rgba(26,26,38,.7),rgba(17,17,26,.5));
+  }
+  .block.key{border-left:3px solid var(--gold)}
+  .block.case{border-left:3px solid var(--gold-2);background:linear-gradient(145deg,rgba(201,169,97,.08),rgba(17,17,26,.5))}
+  .block.tip{border-left:3px solid var(--success)}
+  .block.warn{border-left:3px solid var(--danger)}
+  .block.quran{
+    border-left:3px solid var(--gold);
+    background:linear-gradient(145deg,rgba(201,169,97,.1),rgba(17,17,26,.6));
+    text-align:center;font-family:'Cormorant Garamond',serif;
+  }
+  .block.quran .arabic{
+    font-size:1.8rem;line-height:2;color:var(--gold-2);
+    direction:rtl;margin-bottom:14px;font-family:'Amiri','Cormorant Garamond',serif;
+  }
+  .block.quran .translation{font-style:italic;color:var(--text);font-size:1.05rem}
+  .block.quran .source{display:block;margin-top:10px;font-size:.8rem;color:var(--gold);letter-spacing:1px}
+  .block h4{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Playfair Display',serif;
+    font-size:1.15rem;color:#fff;margin-bottom:14px;
+  }
+  .block .icon{font-size:1.3rem}
+
+  .video-box{
+    margin:36px 0;padding:30px;
+    background:linear-gradient(135deg,rgba(201,169,97,.08),rgba(26,26,38,.6));
+    border:1px solid var(--line);border-radius:14px;text-align:center;
+  }
+  .video-box .play{
+    width:70px;height:70px;border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),var(--gold-2));
+    display:inline-flex;align-items:center;justify-content:center;
+    color:#1a1a26;font-size:1.6rem;margin-bottom:14px;
+    box-shadow:0 10px 30px rgba(201,169,97,.3);
+  }
+  .video-box h4{font-family:'Playfair Display',serif;color:#fff;margin-bottom:8px}
+  .video-box p{color:var(--muted);font-size:.9rem;margin-bottom:0}
+
+  table{
+    width:100%;border-collapse:collapse;margin:20px 0;
+    background:var(--bg-1);border:1px solid var(--line);border-radius:10px;overflow:hidden;
+    font-size:.92rem;
+  }
+  th{
+    background:linear-gradient(135deg,rgba(201,169,97,.2),rgba(201,169,97,.05));
+    color:var(--gold-2);padding:14px 16px;text-align:left;
+    font-family:'Playfair Display',serif;font-size:.95rem;letter-spacing:1px;
+    border-bottom:1px solid var(--line);
+  }
+  td{padding:12px 16px;border-bottom:1px solid rgba(201,169,97,.1);color:var(--text);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:rgba(201,169,97,.04)}
+
+  blockquote{
+    margin:28px 0;padding:22px 28px;
+    border-left:3px solid var(--gold);
+    background:rgba(201,169,97,.05);border-radius:0 10px 10px 0;
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:1.2rem;color:var(--text);
+  }
+  blockquote cite{display:block;margin-top:10px;font-size:.85rem;color:var(--gold-2);font-style:normal;letter-spacing:1px}
+
+  .figure{
+    margin:30px 0;padding:20px;
+    background:var(--bg-1);border:1px solid var(--line);border-radius:10px;
+    text-align:center;
+  }
+  .figure .diagram{
+    display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;
+    padding:20px 10px;
+  }
+  .figure .node{
+    padding:14px 20px;border-radius:10px;
+    background:linear-gradient(135deg,rgba(201,169,97,.15),rgba(201,169,97,.05));
+    border:1px solid var(--gold);
+    font-family:'Playfair Display',serif;color:var(--gold-2);
+    font-size:.95rem;min-width:140px;
+  }
+  .figure .arrow{color:var(--gold);font-size:1.3rem}
+  .figure .caption{
+    margin-top:14px;font-size:.85rem;color:var(--muted);font-style:italic;
+  }
+
+  .timeline{
+    position:relative;padding-left:30px;margin:24px 0;
+  }
+  .timeline::before{
+    content:"";position:absolute;left:8px;top:0;bottom:0;width:2px;
+    background:linear-gradient(180deg,var(--gold),transparent);
+  }
+  .timeline-item{position:relative;margin-bottom:22px;padding-left:20px}
+  .timeline-item::before{
+    content:"";position:absolute;left:-27px;top:6px;
+    width:14px;height:14px;border-radius:50%;
+    background:var(--gold);border:3px solid var(--bg-0);
+    box-shadow:0 0 0 2px var(--gold);
+  }
+  .timeline-item .year{
+    font-family:'Playfair Display',serif;font-style:italic;
+    color:var(--gold-2);font-size:1rem;margin-bottom:4px;
+  }
+  .timeline-item .desc{color:var(--text);font-size:.95rem}
+
+  .bab-footer{
+    padding:40px 6%;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+    max-width:920px;margin:0 auto;
+  }
+  .bab-footer a{
+    padding:12px 24px;border-radius:50px;text-decoration:none;
+    font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;transition:.35s;
+  }
+  .bab-footer .back{background:transparent;color:var(--gold-2);border:1px solid var(--gold)}
+  .bab-footer .back:hover{background:var(--gold-soft)}
+  .bab-footer .next{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#1a1a26;font-weight:600}
+  .bab-footer .next:hover{transform:translateY(-2px)}
+
+  .quiz-section{
+    margin-top:80px;padding:60px 6%;
+    background:linear-gradient(180deg,transparent,rgba(201,169,97,.04));
+    border-top:1px solid var(--line);
+  }
+  .quiz-wrap{max-width:920px;margin:0 auto}
+  .quiz-head{text-align:center;margin-bottom:50px}
+  .quiz-head h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:600;color:#fff;margin-bottom:14px;
+  }
+  .quiz-head h2 em{font-style:italic;color:var(--gold-2);font-weight:400}
+  .quiz-head p{color:var(--muted);max-width:640px;margin:0 auto}
+  .quiz-meta{
+    display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:20px;
+    font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);
+  }
+  .quiz-meta span{padding:6px 14px;border:1px solid var(--gold);border-radius:20px}
+
+  .quiz-card{
+    background:linear-gradient(145deg,rgba(26,26,38,.8),rgba(17,17,26,.6));
+    border:1px solid var(--line);border-radius:16px;
+    padding:34px;margin-bottom:30px;
+  }
+  .quiz-card h3{
+    font-family:'Playfair Display',serif;
+    font-size:1.35rem;color:var(--gold-2);margin-bottom:8px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .quiz-card .warn-text{
+    color:var(--danger);font-size:.85rem;margin-bottom:20px;
+    padding:10px 14px;background:rgba(229,115,115,.08);border-radius:8px;
+    border-left:2px solid var(--danger);
+  }
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:640px){.form-grid{grid-template-columns:1fr}}
+  .form-group{display:flex;flex-direction:column;gap:6px}
+  .form-group.full{grid-column:1/-1}
+  .form-group label{
+    font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);
+  }
+  .form-group input,.form-group select,.form-group textarea{
+    padding:12px 14px;border-radius:8px;
+    background:var(--bg-2);border:1px solid var(--line);
+    color:var(--text);font-family:'Inter',sans-serif;font-size:.95rem;
+    transition:.3s;
+  }
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+    outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,169,97,.15);
+  }
+  .form-group textarea{min-height:100px;resize:vertical}
+
+  .question{
+    padding:22px;margin-bottom:18px;
+    background:rgba(10,10,15,.5);border:1px solid var(--line);border-radius:12px;
+  }
+  .question .q-num{
+    display:inline-block;padding:4px 12px;border-radius:20px;
+    background:linear-gradient(135deg,var(--gold),var(--gold-2));
+    color:#1a1a26;font-size:.75rem;font-weight:600;letter-spacing:1px;
+    margin-bottom:12px;
+  }
+  .question .q-text{font-size:1rem;color:#fff;margin-bottom:16px;line-height:1.6}
+  .options{display:flex;flex-direction:column;gap:10px}
+  .option{
+    display:flex;align-items:flex-start;gap:12px;
+    padding:12px 16px;border-radius:10px;
+    background:var(--bg-2);border:1px solid transparent;
+    cursor:pointer;transition:.3s;
+  }
+  .option:hover{border-color:var(--gold);background:rgba(201,169,97,.06)}
+  .option input{margin-top:4px;accent-color:var(--gold);cursor:pointer}
+  .option label{cursor:pointer;flex:1;font-size:.95rem}
+  .option.correct{border-color:var(--success);background:rgba(129,199,132,.08)}
+  .option.wrong{border-color:var(--danger);background:rgba(229,115,115,.08)}
+
+  .score-box{
+    margin-top:30px;padding:30px;
+    background:linear-gradient(135deg,rgba(201,169,97,.1),rgba(26,26,38,.8));
+    border:1px solid var(--gold);border-radius:14px;text-align:center;
+    display:none;
+  }
+  .score-box.show{display:block;animation:fadeUp .6s ease}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+  .score-box h3{font-family:'Playfair Display',serif;color:var(--gold-2);margin-bottom:16px;font-size:1.5rem}
+  .score-display{
+    font-family:'Playfair Display',serif;
+    font-size:3rem;font-weight:700;
+    background:linear-gradient(135deg,var(--gold),var(--gold-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    margin:10px 0;
+  }
+  .score-detail{display:flex;justify-content:center;gap:30px;margin:20px 0;flex-wrap:wrap}
+  .score-detail div{text-align:center}
+  .score-detail .num{font-size:1.6rem;color:#fff;font-weight:600;font-family:'Playfair Display',serif}
+  .score-detail .lbl{font-size:.75rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:24px}
+  .btn{
+    padding:13px 26px;border-radius:50px;
+    font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;
+    text-decoration:none;cursor:pointer;border:none;transition:.35s;
+    font-family:'Inter',sans-serif;font-weight:500;
+  }
+  .btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#1a1a26;font-weight:600}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(201,169,97,.3)}
+  .btn-ghost{background:transparent;color:var(--gold-2);border:1px solid var(--gold)}
+  .btn-ghost:hover{background:var(--gold-soft)}
+  .btn-danger{background:transparent;color:var(--danger);border:1px solid var(--danger)}
+  .btn-danger:hover{background:rgba(229,115,115,.1)}
+
+  footer{
+    padding:40px 6% 25px;border-top:1px solid var(--line);
+    text-align:center;color:var(--muted);font-size:.82rem;
+  }
+  footer .brand{font-family:'Playfair Display',serif;color:var(--gold-2);font-size:1.05rem;margin-bottom:8px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="brand">METOPEN <span>— MPI</span></div>
+  <ul>
+    <li><a href="index.html#tentang">Beranda</a></li>
+    <li><a href="index.html#pertemuan">Pertemuan</a></li>
+    <li><a href="index.html#penulis">Penulis</a></li>
+  </ul>
+</nav>
+
+<header class="bab-hero">
+  <div class="bab-num">Pertemuan 1 dari 16</div>
+  <div class="eyebrow">Metodologi Penelitian · S2 MPI</div>
+  <h1>Hakikat Penelitian & <em>Kedudukannya</em> dalam Pendidikan Islam</h1>
+  <p class="subtitle">Menelusuri fondasi filosofis, paradigma keilmuan, dan peran strategis penelitian dalam membangun peradaban pendidikan Islam kontemporer — dari tradisi <em>bayani</em>, <em>burhani</em>, hingga <em>irfani</em>.</p>
+  <div class="bab-nav">
+    <a href="index.html" class="back">← Kembali ke Daftar Pertemuan</a>
+    <a href="#pendahuluan" class="next">Mulai Membaca →</a>
+  </div>
+</header>
+
+<main class="content" id="pendahuluan">
+
+  <h2>Pendahuluan</h2>
+  <p class="lead">Penelitian bukan sekadar aktivitas akademik — ia adalah denyut nadi peradaban. Dalam tradisi Islam, semangat <em>iqra'</em> (bacalah) dan <em>tafakkur</em> (berpikir mendalam) telah menjadi akar epistemologis yang melahirkan khazanah keilmuan dunia selama berabad-abad.</p>
+
+  <p>Metodologi Penelitian merupakan mata kuliah fundamental bagi mahasiswa S2 Manajemen Pendidikan Islam (MPI). Pada pertemuan pertama ini, mahasiswa diajak untuk menelaah <strong>hakikat penelitian</strong> sebagai sebuah proses sistematis dalam memperoleh kebenaran, sekaligus memahami <strong>kedudukannya dalam pendidikan Islam</strong> — sebuah bidang yang memadukan wahyu, akal, dan realitas sosial.</p>
+
+  <p>Dalam perjalanan ilmiah ini, kita akan menjelajahi tiga dimensi utama: <strong>ontologi</strong> (apa yang dikaji), <strong>epistemologi</strong> (bagaimana cara mengkajinya), dan <strong>aksiologi</strong> (untuk apa kajian itu dilakukan). Ketiganya membentuk kerangka berpikir yang kokoh bagi setiap peneliti muslim yang ingin berkontribusi pada kemajuan pendidikan Islam di Indonesia maupun dunia.</p>
+
+  <!-- AYAT AL-QUR'AN -->
+  <div class="block quran">
+    <div class="arabic">يَرْفَعِ ٱللَّهُ ٱلَّذِينَ ءَامَنُوا۟ مِنكُمْ وَٱلَّذِينَ أُوتُوا۟ ٱلْعِلْمَ دَرَجَٰتٍ</div>
+    <div class="translation">"Allah akan meninggikan orang-orang yang beriman di antaramu dan orang-orang yang diberi ilmu pengetahuan beberapa derajat."</div>
+    <span class="source">— QS. Al-Mujadilah [58]: 11</span>
+  </div>
+
+  <blockquote>
+    "Penelitian adalah cara ilmiah untuk menemukan kebenaran — dan kebenaran, dalam perspektif Islam, adalah manifestasi dari nama-nama Allah Yang Maha Mengetahui (<em>Al-'Alīm</em>), Maha Bijaksana (<em>Al-Ḥakīm</em>), dan Maha Melihat (<em>Al-Baṣīr</em>)."
+    <cite>— Dr. Ulva Rahmi, S.Ag., M.Pd</cite>
+  </blockquote>
+
+  <!-- VIDEO -->
+  <div class="video-box">
+    <div class="play">▶</div>
+    <h4>Video: Mengapa Penelitian Penting dalam Pendidikan Islam?</h4>
+    <p>Simak pengantar dari penulis tentang peran strategis penelitian dalam pengembangan pendidikan Islam di era kontemporer.</p>
+    <p style="margin-top:10px;font-size:.75rem;opacity:.6">Sumber: Kanal Akademik FTIK UIN Bukittinggi</p>
+  </div>
+
+  <!-- KONSEP KUNCI -->
+  <div class="block key">
+    <h4><span class="icon">🔑</span> Konsep Kunci</h4>
+    <ul>
+      <li><strong>Penelitian (Research):</strong> Proses sistematis, empiris, dan kritis untuk menemukan, menguji, dan mengembangkan pengetahuan.</li>
+      <li><strong>Ilmiah (Scientific):</strong> Bersifat objektif, metodologis, verifikatif, dan dapat diuji ulang oleh pihak lain.</li>
+      <li><strong>Paradigma Penelitian:</strong> Kerangka filosofis yang memandu cara peneliti memandang realitas (ontologi), memperoleh pengetahuan (epistemologi), dan menentukan nilai (aksiologi).</li>
+      <li><strong>Pendidikan Islam:</strong> Sistem pendidikan yang berlandaskan Al-Qur'an, Hadis, dan tradisi keilmuan Islam dalam mengelola proses pembelajaran.</li>
+      <li><strong>Integrasi-Interkoneksi:</strong> Pendekatan yang memadukan ilmu-ilmu naqli (wahyu) dan aqli (akal) secara harmonis (Amin Abdullah, 2010).</li>
+    </ul>
+  </div>
+
+  <!-- STUDI KASUS 1 -->
+  <div class="block case">
+    <h4><span class="icon">📖</span> Studi Kasus 1: Madrasah yang Bertransformasi Melalui Penelitian</h4>
+    <p>Sebuah madrasah tsanawiyah di Sumatera Barat mengalami penurunan minat belajar siswa secara signifikan. Kepala madrasah, yang baru saja menyelesaikan studi S2, mengajak guru-guru untuk melakukan <strong>Penelitian Tindakan Kelas (PTK)</strong> secara kolaboratif. Mereka mengidentifikasi masalah, merancang intervensi berbasis metode <em>project-based learning</em> bernuansa Islam, dan mengukur dampaknya selama dua siklus.</p>
+    <p>Dalam enam bulan, hasil penelitian menunjukkan peningkatan motivasi belajar sebesar 42% dan prestasi akademik sebesar 28%. Temuan ini kemudian dipublikasikan dalam jurnal nasional terakreditasi dan menjadi rujukan bagi madrasah lain di wilayah tersebut.</p>
+    <p><strong>Pembelajaran:</strong> Penelitian bukan milik akademisi semata — ia adalah alat strategis bagi praktisi pendidikan Islam untuk memecahkan masalah nyata dan mengembangkan kualitas pembelajaran.</p>
+  </div>
+
+  <!-- REFLEKSI -->
+  <div class="block tip">
+    <h4><span class="icon">💭</span> Refleksi untuk Peneliti Muslim</h4>
+    <p>Dalam konteks pendidikan Islam di Indonesia, penelitian memiliki dimensi spiritual dan sosial yang unik. Seorang peneliti muslim tidak hanya mengejar kebenaran ilmiah, tetapi juga menyadari bahwa setiap upaya mencari pengetahuan adalah bentuk <em>ibadah</em> dan <em>takarrub</em> (mendekatkan diri) kepada Allah SWT. Pertanyaan mendasar yang perlu direfleksikan: <em>"Bagaimana penelitian saya dapat memberikan kontribusi bagi ummat, bangsa, dan peradaban?"</em></p>
+  </div>
+
+  <!-- ========================================================== -->
+  <h2>1.1 Landasan Teoretis Penelitian Ilmiah</h2>
+  <p>Untuk memahami hakikat penelitian secara utuh, kita perlu menelusuri akar filosofis dan konseptualnya. Penelitian ilmiah tidak lahir dari ruang hampa — ia tumbuh dari tradisi pemikiran yang panjang, mulai dari Aristoteles hingga para ilmuwan muslim seperti Al-Khawarizmi, Ibnu Sina, dan Al-Ghazali, serta pemikir modern seperti Thomas Kuhn, Karl Popper, dan Imre Lakatos.</p>
+
+  <h3>1.1.1 Hakikat Penelitian: Tinjauan Multi-Perspektif</h3>
+  <p>Definisi penelitian telah berkembang seiring dengan perkembangan filsafat ilmu. Berikut adalah sintesis pandangan para ahli terkemuka:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Ahli</th>
+        <th>Definisi Penelitian</th>
+        <th>Penekanan Utama</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Creswell (2014)</strong></td>
+        <td>Proses langkah-langkah sistematis untuk memahami masalah dengan membangun pertanyaan, mengumpulkan data, menganalisis, dan menginterpretasi.</td>
+        <td>Prosedural & sistematis</td>
+      </tr>
+      <tr>
+        <td><strong>Sugiyono (2019)</strong></td>
+        <td>Cara ilmiah untuk mendapatkan data dengan tujuan dan kegunaan tertentu.</td>
+        <td>Pragmatis & aplikatif</td>
+      </tr>
+      <tr>
+        <td><strong>Kerlinger (1973)</strong></td>
+        <td>Penyelidikan yang sistematis, terkontrol, empiris, dan kritis terhadap fenomena-fenomena alam yang dipandu oleh teori dan dugaan hipotetis.</td>
+        <td>Teoretis & hipotetis-deduktif</td>
+      </tr>
+      <tr>
+        <td><strong>Nawawi (2003)</strong></td>
+        <td>Selidikan ilmiah terhadap suatu masalah yang membutuhkan pengumpulan dan analisis data secara sistematis.</td>
+        <td>Problem-oriented</td>
+      </tr>
+      <tr>
+        <td><strong>Arikunto (2013)</strong></td>
+        <td>Penelusuran kebenaran berdasarkan kaidah-kaidah ilmiah untuk menemukan jawaban atas pertanyaan penelitian.</td>
+        <td>Verifikasi kebenaran</td>
+      </tr>
+      <tr>
+        <td><strong>Moleong (2017)</strong></td>
+        <td>Upaya mencari kebenaran melalui proses pengkajian mendalam terhadap gejala sosial secara alami dan holistik.</td>
+        <td>Kualitatif & kontekstual</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Dari berbagai definisi di atas, dapat disintesis bahwa <strong>penelitian ilmiah</strong> memiliki lima unsur fundamental: (1) bersifat <em>sistematis</em>, (2) berbasis <em>data empiris</em>, (3) menggunakan <em>metode tertentu</em>, (4) bertujuan <em>menemukan kebenaran</em>, dan (5) memiliki <em>kegunaan teoretis dan/atau praktis</em>.</p>
+
+  <h3>1.1.2 Filsafat Ilmu dan Paradigma Penelitian</h3>
+  <p>Perkembangan paradigma penelitian tidak dapat dilepaskan dari pemikiran filsafat ilmu modern. Tiga tokoh kunci yang membentuk lanskap metodologi kontemporer adalah:</p>
+
+  <h4>Thomas Kuhn (1922–1996) — Revolusi Ilmiah</h4>
+  <p>Dalam karyanya yang monumental <em>The Structure of Scientific Revolutions</em> (1962), Kuhn memperkenalkan konsep <strong>paradigma</strong> sebagai "keseluruhan keyakinan, nilai, teknik, dan lain-lain yang dianut bersama oleh anggota suatu komunitas ilmiah". Menurut Kuhn, perkembangan ilmu pengetahuan tidak linear, melainkan melalui fase-fase:</p>
+  <ol>
+    <li><strong>Pre-science:</strong> Belum ada paradigma dominan.</li>
+    <li><strong>Normal science:</strong> Ilmuwan bekerja dalam satu paradigma yang disepakati.</li>
+    <li><strong>Crisis:</strong> Muncul anomali yang tidak dapat dijelaskan paradigma lama.</li>
+    <li><strong>Scientific revolution:</strong> Paradigma baru menggantikan paradigma lama.</li>
+    <li><strong>New normal science:</strong> Paradigma baru menjadi acuan komunitas ilmiah.</li>
+  </ol>
+
+  <h4>Karl Popper (1902–1994) — Falsifikasi</h4>
+  <p>Dalam <em>The Logic of Scientific Discovery</em> (1959), Popper mengkritik pandangan induktivis dan menawarkan prinsip <strong>falsifikasi</strong>: sebuah teori ilmiah harus dapat diuji dan berpotensi dibuktikan salah. Ilmu pengetahuan berkembang bukan melalui verifikasi, melainkan melalui upaya terus-menerus untuk memfalsifikasi teori.</p>
+
+  <h4>Imre Lakatos (1922–1974) — Research Programmes</h4>
+  <p>Lakatos menjembatani Kuhn dan Popper melalui konsep <strong>research programmes</strong> yang terdiri dari <em>hard core</em> (inti teori yang tidak boleh diubah) dan <em>protective belt</em> (asumsi tambahan yang dapat dimodifikasi). Program riset yang progresif akan terus menghasilkan prediksi baru, sementara yang degeneratif akan ditinggalkan.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Pemikir</th>
+        <th>Konsep Kunci</th>
+        <th>Implikasi Metodologis</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Kuhn</strong></td>
+        <td>Paradigma & Revolusi Ilmiah</td>
+        <td>Pemahaman kontekstual terhadap perkembangan ilmu</td>
+      </tr>
+      <tr>
+        <td><strong>Popper</strong></td>
+        <td>Falsifikasi & Deduktif</td>
+        <td>Uji hipotesis yang ketat & kritis</td>
+      </tr>
+      <tr>
+        <td><strong>Lakatos</strong></td>
+        <td>Research Programmes</td>
+        <td>Tradisi riset yang berkelanjutan & dinamis</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>1.1.3 Paradigma Penelitian</h3>
+  <p>Paradigma adalah "kacamata" yang digunakan peneliti dalam memandang realitas. Menurut <strong>Guba & Lincoln (1994)</strong>, terdapat tiga paradigma utama dalam penelitian:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Paradigma</th>
+        <th>Ontologi</th>
+        <th>Epistemologi</th>
+        <th>Metode</th>
+        <th>Tokoh Kunci</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Positivisme</strong></td>
+        <td>Realitas tunggal, objektif, terukur</td>
+        <td>Dualis — peneliti dan objek terpisah</td>
+        <td>Eksperimen, survei, statistik</td>
+        <td>Comte, Durkheim</td>
+      </tr>
+      <tr>
+        <td><strong>Post-Positivisme</strong></td>
+        <td>Realitas dapat dipahami, tetapi tidak sempurna</td>
+        <td>Objektivis modifikasi — bias diakui</td>
+        <td>Eksperimen kritis, survei canggih</td>
+        <td>Popper, Lakatos</td>
+      </tr>
+      <tr>
+        <td><strong>Interpretif / Konstruktivisme</strong></td>
+        <td>Realitas majemuk, dikonstruksi sosial</td>
+        <td>Subjektivis — peneliti berinteraksi dengan objek</td>
+        <td>Wawancara, observasi, studi kasus</td>
+        <td>Lincoln & Guba</td>
+      </tr>
+      <tr>
+        <td><strong>Kritis / Transformasi</strong></td>
+        <td>Realitas historis, shaped by power</td>
+        <td>Transaksional — nilai memediasi inquiry</td>
+        <td>Dialogis, partisipatoris, aksi</td>
+        <td>Freire, Habermas</td>
+      </tr>
+      <tr>
+        <td><strong>Pragmatisme</strong></td>
+        <td>Realitas tergantung pada masalah</td>
+        <td>Instrumentalis — kebenaran adalah apa yang bekerja</td>
+        <td>Mixed methods</td>
+        <td>Dewey, Rorty</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>1.1.4 Penelitian dalam Perspektif Islam</h3>
+  <p>Islam memiliki tradisi keilmuan yang kaya. Al-Qur'an sendiri mendorong umatnya untuk melakukan <em>tadabbur</em> (perenungan), <em>tabayyun</em> (verifikasi), dan <em>istiqra'</em> (induksi). Ayat-ayat kauniyah (tanda-tanda alam semesta) dan ayat-ayat qauliyah (wahyu) membentuk <strong>integrasi keilmuan</strong> yang menjadi ciri khas penelitian dalam pendidikan Islam.</p>
+
+  <div class="block quran">
+    <div class="arabic">أَفَلَا يَتَدَبَّرُونَ ٱلْقُرْءَانَ أَمْ عَلَىٰ قُلُوبٍ أَقْفَالُهَا</div>
+    <div class="translation">"Maka tidakkah mereka menghayati (mendalami) Al-Qur'an, ataukah hati mereka terkunci?"</div>
+    <span class="source">— QS. Muhammad [47]: 24</span>
+  </div>
+
+  <div class="block quran">
+    <div class="arabic">يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓا۟ إِن جَآءَكُمْ فَاسِقٌۢ بِنَبَإٍ فَتَبَيَّنُوٓا۟</div>
+    <div class="translation">"Wahai orang-orang yang beriman! Jika seseorang yang fasik datang kepadamu membawa suatu berita, maka telitilah kebenarannya."</div>
+    <span class="source">— QS. Al-Hujurat [49]: 6</span>
+  </div>
+
+  <p>Menurut <strong>Amin Abdullah (2010)</strong>, penelitian dalam pendidikan Islam harus memadukan tiga pendekatan secara proporsional:</p>
+  <ul>
+    <li><strong>Bayani (tekstual):</strong> Berbasis pada teks wahyu (Al-Qur'an & Hadis) dengan pendekatan hermeneutika dan tafsir.</li>
+    <li><strong>Burhani (rasional-empiris):</strong> Berbasis pada logika, observasi, dan eksperimen — sejalan dengan tradisi filsafat dan sains Islam.</li>
+    <li><strong>Irfani (spiritual-intuitif):</strong> Berbasis pada pengalaman spiritual, intuisi, dan pencerahan batin — sejalan dengan tradisi tasawuf.</li>
+  </ul>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Pendekatan</th>
+        <th>Sumber Pengetahuan</th>
+        <th>Metode Khas</th>
+        <th>Tokoh Tradisi</th>
+        <th>Contoh dalam Pendidikan Islam</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Bayani</strong></td>
+        <td>Wahyu (naṣṣ)</td>
+        <td>Tafsir, takhrij hadis, istinbath hukum</td>
+        <td>Al-Syafi'i, Al-Ghazali</td>
+        <td>Kajian tafsir ayat-ayat tarbawi</td>
+      </tr>
+      <tr>
+        <td><strong>Burhani</strong></td>
+        <td>Akal & empiri</td>
+        <td>Logika, observasi, eksperimen</td>
+        <td>Ibnu Rusyd, Al-Farabi</td>
+        <td>Penelitian kuantitatif efektivitas metode pembelajaran</td>
+      </tr>
+      <tr>
+        <td><strong>Irfani</strong></td>
+        <td>Intuisi spiritual</td>
+        <td>Muhasabah, kasyf, dzauq</td>
+        <td>Ibnu Arabi, Al-Ghazali</td>
+        <td>Studi pengalaman spiritual santri dalam tahfizh</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ========================================================== -->
+  <h2>1.2 Konsep Penelitian Ilmiah</h2>
+
+  <h3>1.2.1 Ciri-Ciri Penelitian Ilmiah</h3>
+  <p>Sebuah kegiatan dapat disebut penelitian ilmiah apabila memenuhi ciri-ciri berikut:</p>
+  <ul>
+    <li><strong>Sistematis:</strong> mengikuti langkah-langkah yang terstruktur dan logis.</li>
+    <li><strong>Objektif:</strong> bebas dari bias subjektif peneliti.</li>
+    <li><strong>Empiris:</strong> berbasis pada data yang dapat diamati.</li>
+    <li><strong>Verifikatif:</strong> dapat diuji kebenarannya oleh pihak lain.</li>
+    <li><strong>Kumulatif:</strong> membangun atas pengetahuan yang sudah ada.</li>
+    <li><strong>Refleksif:</strong> menyadari keterbatasan dan asumsi yang mendasarinya.</li>
+    <li><strong>Teoretis:</strong> berangkat dari dan kembali ke kerangka teori.</li>
+    <li><strong>Analitis:</strong> tidak sekadar mendeskripsi, tetapi menganalisis hubungan antar variabel.</li>
+  </ul>
+
+  <h3>1.2.2 Jenis-Jenis Penelitian</h3>
+  <p>Berdasarkan pendekatannya, penelitian dapat diklasifikasikan sebagai berikut:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Jenis</th>
+        <th>Karakteristik</th>
+        <th>Paradigma</th>
+        <th>Contoh dalam Pendidikan Islam</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Kuantitatif</strong></td>
+        <td>Numerik, statistik, generalisasi</td>
+        <td>Positivisme</td>
+        <td>Pengaruh metode hafalan terhadap prestasi tahfizh</td>
+      </tr>
+      <tr>
+        <td><strong>Kualitatif</strong></td>
+        <td>Deskriptif, makna, kontekstual</td>
+        <td>Interpretif</td>
+        <td>Implementasi pendidikan karakter di pesantren</td>
+      </tr>
+      <tr>
+        <td><strong>Mixed Methods</strong></td>
+        <td>Kombinasi kuantitatif & kualitatif</td>
+        <td>Pragmatisme</td>
+        <td>Evaluasi program tahfizh dengan survei & wawancara</td>
+      </tr>
+      <tr>
+        <td><strong>R&D</strong></td>
+        <td>Menghasilkan produk</td>
+        <td>Pragmatisme</td>
+        <td>Pengembangan modul fiqih berbasis digital</td>
+      </tr>
+      <tr>
+        <td><strong>PTK</strong></td>
+        <td>Memperbaiki praktik kelas</td>
+        <td>Pragmatisme-Kritis</td>
+        <td>Peningkatan motivasi belajar melalui metode diskusi</td>
+      </tr>
+      <tr>
+        <td><strong>Evaluasi Program</strong></td>
+        <td>Menilai efektivitas program</td>
+        <td>Pragmatisme</td>
+        <td>Evaluasi program beasiswa santri berprestasi</td>
+      </tr>
+      <tr>
+        <td><strong>Studi Pustaka</strong></td>
+        <td>Analisis teks & literatur</td>
+        <td>Interpretif</td>
+        <td>Konsep kepemimpinan dalam Al-Qur'an</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>1.2.3 Tahapan Penelitian</h3>
+  <p>Secara umum, penelitian ilmiah mengikuti tahapan berikut:</p>
+
+  <div class="figure">
+    <div class="diagram">
+      <div class="node">1. Identifikasi Masalah</div>
+      <div class="arrow">→</div>
+      <div class="node">2. Kajian Pustaka</div>
+      <div class="arrow">→</div>
+      <div class="node">3. Perumusan Masalah</div>
+    </div>
+    <div class="diagram">
+      <div class="node">4. Kerangka Berpikir</div>
+      <div class="arrow">→</div>
+      <div class="node">5. Desain & Metode</div>
+      <div class="arrow">→</div>
+      <div class="node">6. Pengumpulan Data</div>
+    </div>
+    <div class="diagram">
+      <div class="node">7. Analisis Data</div>
+      <div class="arrow">→</div>
+      <div class="node">8. Interpretasi</div>
+      <div class="arrow">→</div>
+      <div class="node">9. Laporan & Publikasi</div>
+    </div>
+    <div class="caption">Gambar 1.1. Siklus Tahapan Penelitian Ilmiah</div>
+  </div>
+
+  <ol>
+    <li><strong>Identifikasi masalah</strong> — menemukan fenomena yang perlu dikaji.</li>
+    <li><strong>Kajian pustaka</strong> — menelaah penelitian terdahulu dan teori relevan.</li>
+    <li><strong>Perumusan masalah & tujuan</strong> — mempertajam fokus penelitian.</li>
+    <li><strong>Penyusunan kerangka berpikir & hipotesis</strong> (jika kuantitatif).</li>
+    <li><strong>Pemilihan desain & metode penelitian.</strong></li>
+    <li><strong>Pengumpulan data</strong> — menggunakan instrumen yang valid & reliabel.</li>
+    <li><strong>Analisis data</strong> — statistik atau tematik sesuai pendekatan.</li>
+    <li><strong>Interpretasi & pembahasan</strong> — mengaitkan temuan dengan teori.</li>
+    <li><strong>Penyusunan laporan & publikasi.</strong></li>
+  </ol>
+
+  <!-- ========================================================== -->
+  <h2>1.3 Paradigma Penelitian dalam Pendidikan Islam</h2>
+
+  <h3>1.3.1 Dimensi Ontologis</h3>
+  <p>Ontologi menjawab pertanyaan: <em>"Apa yang menjadi hakikat realitas yang dikaji?"</em> Dalam pendidikan Islam, realitas tidak hanya bersifat material, tetapi juga spiritual. Oleh karena itu, objek kajian mencakup aspek <strong>lahiriah</strong> (kebijakan, kurikulum, pembelajaran) dan <strong>batiniah</strong> (nilai, spiritualitas, akhlak).</p>
+
+  <p>Menurut <strong>Al-Attas (1995)</strong>, ontologi Islam mengakui dua tingkatan realitas: <em>'alam al-syahadah</em> (alam yang dapat disaksikan) dan <em>'alam al-ghayb</em> (alam yang gaib). Keduanya saling terkait dan membentuk pandangan hidup (<em>worldview</em>) yang utuh.</p>
+
+  <h3>1.3.2 Dimensi Epistemologis</h3>
+  <p>Epistemologi berkaitan dengan <em>sumber dan cara memperoleh pengetahuan</em>. Pendidikan Islam mengakui tiga sumber pengetahuan utama:</p>
+  <ul>
+    <li><strong>Wahyu (Al-Qur'an & Hadis)</strong> — sumber primer kebenaran.</li>
+    <li><strong>Akal (rasio)</strong> — alat untuk memahami dan menginterpretasi.</li>
+    <li><strong>Empiri (pengalaman)</strong> — basis verifikasi keilmuan.</li>
+  </ul>
+
+  <p>Menurut <strong>Al-Faruqi (1982)</strong>, epistemologi Islam harus dibangun di atas prinsip <em>tauḥīd</em> (keesaan Allah) yang menyatukan seluruh dimensi pengetahuan. Tidak ada dikotomi antara ilmu agama dan ilmu umum — semuanya bersumber dari Allah dan bermuara pada pengabdian kepada-Nya.</p>
+
+  <h3>1.3.3 Dimensi Aksiologis</h3>
+  <p>Aksiologi menyangkut <em>nilai dan tujuan</em> penelitian. Dalam pendidikan Islam, penelitian harus bermuara pada <strong>kemaslahatan ummat</strong> (<em>maslahah</em>) dan <strong>keridhaan Allah</strong> (<em>mardhatillah</em>). Penelitian yang baik bukan hanya yang dipublikasikan, tetapi yang memberikan dampak nyata bagi perbaikan pendidikan.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Dimensi</th>
+        <th>Pertanyaan Dasar</th>
+        <th>Perspektif Barat</th>
+        <th>Perspektif Islam</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ontologi</strong></td>
+        <td>Apa hakikat realitas?</td>
+        <td>Materi, empiris, terukur</td>
+        <td>Materi + spiritual, lahir + batin</td>
+      </tr>
+      <tr>
+        <td><strong>Epistemologi</strong></td>
+        <td>Bagaimana memperoleh pengetahuan?</td>
+        <td>Akal & empiri</td>
+        <td>Wahyu + akal + empiri + intuisi</td>
+      </tr>
+      <tr>
+        <td><strong>Aksiologi</strong></td>
+        <td>Untuk apa pengetahuan digunakan?</td>
+        <td>Bebas nilai (value-free)</td>
+        <td>Terikat nilai (value-bound), bermaslahat</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ========================================================== -->
+  <h2>1.4 Kedudukan Penelitian dalam Pendidikan Islam</h2>
+  <p>Penelitian memiliki kedudukan strategis dalam pengembangan pendidikan Islam, antara lain:</p>
+  <ul>
+    <li><strong>Sebagai basis kebijakan:</strong> keputusan manajerial madrasah, pesantren, dan perguruan tinggi Islam seharusnya berbasis bukti (<em>evidence-based</em>).</li>
+    <li><strong>Sebagai alat pengembangan kurikulum:</strong> hasil penelitian menjadi rujukan dalam penyempurnaan kurikulum pendidikan Islam.</li>
+    <li><strong>Sebagai sarana pemecahan masalah:</strong> PTK, R&D, dan evaluasi program membantu guru dan pengelola menyelesaikan problematik kelas dan lembaga.</li>
+    <li><strong>Sebagai kontribusi keilmuan:</strong> memperkuat khazanah intelektual Islam di kancah global.</li>
+    <li><strong>Sebagai instrumen akreditasi:</strong> publikasi penelitian menjadi indikator mutu perguruan tinggi Islam.</li>
+  </ul>
+
+  <div class="block case">
+    <h4><span class="icon">📖</span> Studi Kasus 2: Riset Kolaboratif UIN dan Pesantren</h4>
+    <p>Sebuah tim peneliti dari UIN melakukan penelitian kolaboratif dengan beberapa pesantren di Sumatera untuk mengkaji efektivitas <strong>metode sorogan</strong> dalam pembelajaran kitab kuning. Melalui pendekatan kualitatif dengan teknik observasi partisipan dan wawancara mendalam, tim menemukan bahwa metode sorogan memiliki keunggulan dalam membangun kedekatan personal antara kyai dan santri, namun perlu dilengkapi dengan media digital untuk menjawab tantangan generasi Z.</p>
+    <p><strong>Pembelajaran:</strong> Penelitian kolaboratif antara perguruan tinggi dan lembaga pendidikan Islam menghasilkan temuan yang kontekstual dan aplikatif.</p>
+  </div>
+
+  <!-- ========================================================== -->
+  <h2>1.5 Peran dan Fungsi Penelitian</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Peran</th>
+        <th>Deskripsi</th>
+        <th>Implementasi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Deskriptif</strong></td>
+        <td>Menggambarkan fenomena pendidikan Islam secara faktual</td>
+        <td>Profil mutu madrasah di suatu daerah</td>
+      </tr>
+      <tr>
+        <td><strong>Eksplanatif</strong></td>
+        <td>Menjelaskan hubungan kausal antar variabel</td>
+        <td>Pengaruh kepemimpinan terhadap kinerja guru</td>
+      </tr>
+      <tr>
+        <td><strong>Prediktif</strong></td>
+        <td>Meramalkan tren masa depan</td>
+        <td>Proyeksi kebutuhan guru PAI 10 tahun ke depan</td>
+      </tr>
+      <tr>
+        <td><strong>Developmental</strong></td>
+        <td>Mengembangkan produk atau model baru</td>
+        <td>Model pembelajaran fiqih kontekstual</td>
+      </tr>
+      <tr>
+        <td><strong>Evaluatif</strong></td>
+        <td>Menilai efektivitas program</td>
+        <td>Evaluasi program beasiswa santri berprestasi</td>
+      </tr>
+      <tr>
+        <td><strong>Emansipatoris</strong></td>
+        <td>Membebaskan dari ketertindasan struktural</td>
+        <td>Penelitian partisipatif pemberdayaan guru honorer madrasah</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ========================================================== -->
+  <h2>1.6 Tradisi Keilmuan Islam: Akar Historis Penelitian</h2>
+  <p>Sebelum metodologi penelitian modern berkembang di Barat, peradaban Islam telah melahirkan tradisi keilmuan yang sangat maju. Beberapa tokoh dan kontribusinya:</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="year">Abad ke-8 — Jabir bin Hayyan</div>
+      <div class="desc">Bapak kimia modern yang memperkenalkan <strong>metode eksperimen</strong> secara sistematis dalam laboratorium — cikal bakal metode ilmiah modern.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="year">Abad ke-9 — Al-Khawarizmi</div>
+      <div class="desc">Pencipta aljabar dan algoritma. Karyanya <em>Al-Kitab al-Mukhtasar fi Hisab al-Jabr wal-Muqabala</em> menjadi fondasi matematika dan logika komputasional.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="year">Abad ke-10 — Al-Zuhri & Ibnu Hazm</div>
+      <div class="desc">Pelopor <strong>metode kritik hadis</strong> (<em>al-jarḥ wa al-ta'dīl</em>) — sebuah metodologi verifikasi sumber yang sangat ketat dan sistematis.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="year">Abad ke-11 — Ibnu Sina (Avicenna)</div>
+      <div class="desc">Penyusun <em>Al-Qanun fi al-Ṭibb</em> (The Canon of Medicine) yang menjadi rujukan kedokteran dunia selama 600 tahun. Memperkenalkan <strong>metode observasi klinis</strong>.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="year">Abad ke-11 — Ibnu Al-Haytham (Alhazen)</div>
+      <div class="desc">Bapak optik modern yang dianggap sebagai pelopor <strong>metode ilmiah eksperimental</strong> — 600 tahun sebelum Francis Bacon.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="year">Abad ke-14 — Ibnu Khaldun</div>
+      <div class="desc">Bapak sosiologi dan historiografi modern. Karyanya <em>Muqaddimah</em> memperkenalkan <strong>metode analisis sosial</strong> dan kritik terhadap sumber sejarah.</div>
+    </div>
+  </div>
+
+  <blockquote>
+    "Ilmu pengetahuan dalam Islam tidak pernah dipisahkan dari nilai. Setiap penelitian adalah bentuk pengabdian, dan setiap temuan adalah amanah yang harus dipertanggungjawabkan."
+    <cite>— Ismail Raji Al-Faruqi (1982)</cite>
+  </blockquote>
+
+  <!-- ========================================================== -->
+  <h2>1.7 Etika Penelitian dalam Perspektif Islam</h2>
+  <p>Penelitian dalam Islam tidak hanya terikat pada etika akademik universal, tetapi juga pada nilai-nilai spiritual. Beberapa prinsip etika penelitian islami:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Prinsip</th>
+        <th>Makna</th>
+        <th>Implementasi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ṣidq (Kejujuran)</strong></td>
+        <td>Kejujuran dalam pelaporan data dan temuan</td>
+        <td>Tidak memalsukan data, tidak plagiat</td>
+      </tr>
+      <tr>
+        <td><strong>Amanah (Kepercayaan)</strong></td>
+        <td>Menjaga kepercayaan informan dan pemberi dana</td>
+        <td>Menjaga kerahasiaan, melaporkan penggunaan dana</td>
+      </tr>
+      <tr>
+        <td><strong>'Adl (Keadilan)</strong></td>
+        <td>Bersikap adil terhadap subjek dan pihak lain</td>
+        <td>Tidak mendiskreditkan peneliti lain, mengakui kontribusi</td>
+      </tr>
+      <tr>
+        <td><strong>Iḥsān (Kebaikan)</strong></td>
+        <td>Melakukan penelitian dengan kualitas terbaik</td>
+        <td>Menggunakan metode rigor, analisis mendalam</td>
+      </tr>
+      <tr>
+        <td><strong>Maslahah (Kemaslahatan)</strong></td>
+        <td>Penelitian harus membawa manfaat</td>
+        <td>Memilih topik yang relevan dengan kebutuhan ummat</td>
+      </tr>
+      <tr>
+        <td><strong>Lā ḍarar wa lā ḍirār</strong></td>
+        <td>Tidak boleh membahayakan diri sendiri dan orang lain</td>
+        <td>Menjaga keselamatan subjek penelitian</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="block warn">
+    <h4><span class="icon">⚠️</span> Pelanggaran Etika yang Harus Dihindari</h4>
+    <ul>
+      <li><strong>Fabrikasi:</strong> mengarang data yang tidak pernah ada.</li>
+      <li><strong>Falsifikasi:</strong> memanipulasi data atau hasil penelitian.</li>
+      <li><strong>Plagiarisme:</strong> mengklaim karya orang lain sebagai karya sendiri.</li>
+      <li><strong>Self-plagiarism:</strong> mempublikasikan ulang karya sendiri tanpa sitasi yang tepat.</li>
+      <li><strong>Conflict of interest:</strong> menyembunyikan kepentingan pribadi yang memengaruhi penelitian.</li>
+      <li><strong>Pelanggaran informed consent:</strong> melakukan penelitian tanpa persetujuan subjek.</li>
+    </ul>
+  </div>
+
+  <!-- ========================================================== -->
+  <h2>1.8 Tantangan dan Peluang Penelitian Pendidikan Islam Kontemporer</h2>
+
+  <h3>1.8.1 Tantangan</h3>
+  <ul>
+    <li><strong>Dikotomi ilmu:</strong> pemisahan antara ilmu agama dan ilmu umum masih melembaga di banyak institusi.</li>
+    <li><strong>Keterbatasan literatur:</strong> referensi berbahasa Arab dan Inggris masih minim diakses mahasiswa.</li>
+    <li><strong>Infrastruktur riset:</strong> laboratorium, database jurnal, dan software analisis masih terbatas di beberapa PTKI.</li>
+    <li><strong>Budaya akademik:</strong> tradisi menulis dan mempublikasikan masih perlu ditingkatkan.</li>
+    <li><strong>Integrasi keilmuan:</strong> memadukan wahyu dan akal secara proporsional membutuhkan kedalaman filosofis.</li>
+  </ul>
+
+  <h3>1.8.2 Peluang</h3>
+  <ul>
+    <li><strong>Revolusi digital:</strong> akses ke jurnal internasional (Scopus, WoS) semakin terbuka.</li>
+    <li><strong>Software canggih:</strong> SPSS, AMOS, SmartPLS, NVivo, Atlas.ti memudahkan analisis data.</li>
+    <li><strong>Kolaborasi global:</strong> jaringan peneliti muslim internasional semakin luas (IAIE, ISRA).</li>
+    <li><strong>Publikasi Open Access:</strong> jurnal-jurnal PTKI semakin banyak terindeks Sinta dan Scopus.</li>
+    <li><strong>Revitalisasi integrasi:</strong> paradigma integrasi-interkoneksi Amin Abdullah mendapat respons positif.</li>
+  </ul>
+
+  <div class="block tip">
+    <h4><span class="icon">💡</span> Tips Praktis untuk Peneliti Pemula</h4>
+    <ul>
+      <li>Mulailah dengan membaca <strong>jurnal-jurnal terakreditasi</strong> (Sinta 1–4) di bidang pendidikan Islam.</li>
+      <li>Identifikasi <strong>masalah nyata</strong> di sekitar Anda — penelitian terbaik lahir dari kegelisahan terhadap realitas.</li>
+      <li>Kuasai minimal <strong>satu pendekatan</strong> secara mendalam sebelum beralih ke pendekatan lain.</li>
+      <li>Bangun <strong>jejaring akademik</strong> — berdiskusi dengan dosen, rekan sejawat, dan praktisi.</li>
+      <li>Jadikan <strong>nilai-nilai Islam</strong> sebagai ruh penelitian, bukan sekadar tempelan.</li>
+      <li>Manfaatkan <strong>reference manager</strong> seperti Mendeley atau Zotero untuk mengelola sitasi.</li>
+      <li>Ikuti <strong>seminar dan konferensi</strong> untuk memperluas wawasan dan jejaring.</li>
+    </ul>
+  </div>
+
+  <div class="block warn">
+    <h4><span class="icon">⚠️</span> Kesalahan Umum Peneliti Pemula</h4>
+    <ul>
+      <li>Memilih topik penelitian tanpa memahami <strong>urgensi dan kebaruan</strong> (novelty).</li>
+      <li>Tidak memahami perbedaan mendasar antara <strong>paradigma kuantitatif dan kualitatif</strong>.</li>
+      <li>Mengabaikan <strong>kajian pustaka</strong> sehingga penelitian menjadi repetitif.</li>
+      <li>Memisahkan <strong>nilai Islam</strong> dari proses penelitian — padahal integrasi adalah kekuatan utama.</li>
+      <li>Terburu-buru mengumpulkan data tanpa <strong>desain penelitian yang matang</strong>.</li>
+      <li>Tidak memahami <strong>etika penelitian</strong> — terutama terkait informed consent dan kerahasiaan.</li>
+      <li>Menulis laporan tanpa <strong>struktur yang jelas</strong> dan alur argumentasi yang koheren.</li>
+    </ul>
+  </div>
+
+  <!-- ========================================================== -->
+  <h2>Kesimpulan</h2>
+  <p>Pertemuan pertama ini telah mengantar kita pada pemahaman bahwa <strong>penelitian adalah jantung peradaban</strong> — termasuk peradaban pendidikan Islam. Hakikat penelitian sebagai proses sistematis untuk menemukan kebenaran harus dipadukan dengan paradigma filosofis yang kokoh: ontologi yang luas, epistemologi yang integratif, dan aksiologi yang berorientasi pada kemaslahatan.</p>
+
+  <p>Dalam konteks pendidikan Islam, penelitian memiliki kedudukan strategis sebagai basis kebijakan, alat pengembangan kurikulum, sarana pemecahan masalah, dan kontribusi keilmuan. Tradisi keilmuan Islam yang kaya — dari Al-Khawarizmi hingga Ibnu Khaldun — memberikan fondasi yang kokoh bagi pengembangan metodologi penelitian yang autentik dan kontekstual.</p>
+
+  <p>Mahasiswa S2 MPI, sebagai calon pemimpin pendidikan Islam, harus memiliki kesadaran bahwa setiap penelitian yang dilakukan adalah <strong>amanah keilmuan</strong> yang akan dipertanggungjawabkan bukan hanya kepada komunitas akademik, tetapi juga kepada Allah SWT. Etika penelitian — kejujuran, amanah, keadilan, dan kemaslahatan — harus menjadi kompas dalam setiap langkah penelitian.</p>
+
+  <p>Pada pertemuan selanjutnya, kita akan menyelami lebih dalam dunia <strong>penelitian kuantitatif</strong> — ciri, variabel, dan desainnya. Siapkan diri Anda untuk memasuki laboratorium angka dan statistik!</p>
+
+  <!-- ========================================================== -->
+  <h2>📚 Daftar Pustaka</h2>
+  <ul style="list-style:none;margin-left:0">
+    <li style="margin-bottom:10px">Abdullah, M. A. (2010). <em>Islamic Studies di Perguruan Tinggi: Pendekatan Integratif-Interkonektif</em>. Yogyakarta: Pustaka Pelajar.</li>
+    <li style="margin-bottom:10px">Al-Attas, S. M. N. (1995). <em>Prolegomena to the Metaphysics of Islam</em>. Kuala Lumpur: ISTAC.</li>
+    <li style="margin-bottom:10px">Al-Faruqi, I. R. (1982). <em>Islamization of Knowledge: General Principles and Work Plan</em>. Herndon: IIIT.</li>
+    <li style="margin-bottom:10px">Arikunto, S. (2013). <em>Prosedur Penelitian: Suatu Pendekatan Praktik</em>. Jakarta: Rineka Cipta.</li>
+    <li style="margin-bottom:10px">Creswell, J. W. (2014). <em>Research Design: Qualitative, Quantitative, and Mixed Methods Approaches</em> (4th ed.). Thousand Oaks: SAGE.</li>
+    <li style="margin-bottom:10px">Guba, E. G., & Lincoln, Y. S. (1994). Competing paradigms in qualitative research. In N. K. Denzin & Y. S. Lincoln (Eds.), <em>Handbook of Qualitative Research</em> (pp. 105–117). Thousand Oaks: SAGE.</li>
+    <li style="margin-bottom:10px">Kerlinger, F. N. (1973). <em>Foundations of Behavioral Research</em> (2nd ed.). New York: Holt, Rinehart and Winston.</li>
+    <li style="margin-bottom:10px">Kuhn, T. S. (1962). <em>The Structure of Scientific Revolutions</em>. Chicago: University of Chicago Press.</li>
+    <li style="margin-bottom:10px">Lakatos, I. (1978). <em>The Methodology of Scientific Research Programmes</em>. Cambridge: Cambridge University Press.</li>
+    <li style="margin-bottom:10px">Moleong, L. J. (2017). <em>Metodologi Penelitian Kualitatif</em>. Bandung: Remaja Rosdakarya.</li>
+    <li style="margin-bottom:10px">Muhadjir. (2017). <em>Filsafat Ilmu: Mengungkap Hakikat Ilmu Pengetahuan</em>. Yogyakarta: Teras.</li>
+    <li style="margin-bottom:10px">Nasution, H. (2017). <em>Metodologi Penelitian: Suatu Pengantar</em>. Bandung: Alfabeta.</li>
+    <li style="margin-bottom:10px">Nata, A. (2010). <em>Filsafat Pendidikan Islam</em>. Jakarta: Gaya Media Pratama.</li>
+    <li style="margin-bottom:10px">Nawawi, H. (2003). <em>Metode Penelitian Bidang Sosial</em>. Yogyakarta: Gadjah Mada University Press.</li>
+    <li style="margin-bottom:10px">Popper, K. (1959). <em>The Logic of Scientific Discovery</em>. London: Routledge.</li>
+    <li style="margin-bottom:10px">Qardhawi, Y. (2004). <em>Al-'Aql wa al-'Ilm fi al-Qur'an</em>. Kairo: Maktabah Wahbah.</li>
+    <li style="margin-bottom:10px">Rahmi, U. (2024). <em>Metodologi Penelitian Pendidikan Islam</em>. Bukittinggi: FTIK UIN Bukittinggi.</li>
+    <li style="margin-bottom:10px">Sugiyono. (2019). <em>Metode Penelitian Kuantitatif, Kualitatif, dan R&D</em>. Bandung: Alfabeta.</li>
+    <li style="margin-bottom:10px">Sukmadinata, S. (2011). <em>Metode Penelitian Pendidikan</em>. Bandung: Remaja Rosdakarya.</li>
+    <li style="margin-bottom:10px">Tafsir, A. (2012). <em>Filsafat Pendidikan Islam</em>. Bandung: Remaja Rosdakarya.</li>
+  </ul>
+
+</main>
+
+<div class="bab-footer">
+  <a href="index.html" class="back">← Kembali ke Daftar Pertemuan</a>
+  <a href="2.html" class="next">Pertemuan 2: Penelitian Kuantitatif →</a>
+</div>
+
+<!-- ============ UJI FORMATIF ============ -->
+<section class="quiz-section" id="quiz">
+  <div class="quiz-wrap">
+
+    <div class="quiz-head">
+      <div class="eyebrow">Evaluasi Pembelajaran</div>
+      <h2>Uji Formatif <em>Pertemuan 1</em></h2>
+      <p>Uji pemahaman Anda tentang hakikat penelitian, paradigma keilmuan, tradisi keilmuan Islam, etika penelitian, dan kedudukan penelitian dalam pendidikan Islam.</p>
+      <div class="quiz-meta">
+        <span>📝 10 Soal PG</span>
+        <span>✍️ 5 Soal Essay</span>
+        <span>⏱️ Skor 100</span>
+      </div>
+    </div>
+
+    <div class="quiz-card">
+      <h3>📋 Data Mahasiswa</h3>
+      <div class="warn-text">⚠️ Mohon lengkapi semua data terlebih dahulu sebelum mengerjakan soal!</div>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>Nama Lengkap *</label>
+          <input type="text" id="nama" required>
+        </div>
+        <div class="form-group">
+          <label>NIM *</label>
+          <input type="text" id="nim" required>
+        </div>
+        <div class="form-group">
+          <label>📅 Tanggal Ujian</label>
+          <input type="date" id="tanggal">
+        </div>
+        <div class="form-group">
+          <label>Fakultas</label>
+          <input type="text" id="fakultas" value="FTIK">
+        </div>
+        <div class="form-group">
+          <label>Jurusan / Prodi</label>
+          <input type="text" id="prodi" value="S2 Manajemen Pendidikan Islam">
+        </div>
+        <div class="form-group">
+          <label>Konsentrasi</label>
+          <input type="text" id="konsentrasi">
+        </div>
+        <div class="form-group">
+          <label>Semester</label>
+          <select id="semester">
+            <option value="">Pilih Semester</option>
+            <option>Semester 1</option><option>Semester 2</option>
+            <option>Semester 3</option><option>Semester 4</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Kelas</label>
+          <input type="text" id="kelas">
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-card">
+      <h3>📋 Bagian A – Pilihan Ganda</h3>
+      <div class="warn-text">⚠️ Mohon lengkapi semua 10 soal pilihan ganda terlebih dahulu!</div>
+
+      <div class="question" data-correct="b">
+        <span class="q-num">Soal 1 · 10 poin</span>
+        <div class="q-text">Menurut Sugiyono (2019), penelitian didefinisikan sebagai cara ilmiah untuk mendapatkan data dengan tujuan dan kegunaan tertentu. Kata kunci yang <strong>BUKAN</strong> merupakan unsur definisi tersebut adalah...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q1" id="q1a" value="a"><label for="q1a">a. Cara ilmiah</label></div>
+          <div class="option"><input type="radio" name="q1" id="q1b" value="b"><label for="q1b">b. Cara intuitif</label></div>
+          <div class="option"><input type="radio" name="q1" id="q1c" value="c"><label for="q1c">c. Data empiris</label></div>
+          <div class="option"><input type="radio" name="q1" id="q1d" value="d"><label for="q1d">d. Tujuan dan kegunaan</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="c">
+        <span class="q-num">Soal 2 · 10 poin</span>
+        <div class="q-text">Paradigma penelitian yang memandang realitas sebagai sesuatu yang tunggal, objektif, dan dapat diukur secara numerik adalah...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q2" id="q2a" value="a"><label for="q2a">a. Interpretif</label></div>
+          <div class="option"><input type="radio" name="q2" id="q2b" value="b"><label for="q2b">b. Konstruktivisme</label></div>
+          <div class="option"><input type="radio" name="q2" id="q2c" value="c"><label for="q2c">c. Positivisme</label></div>
+          <div class="option"><input type="radio" name="q2" id="q2d" value="d"><label for="q2d">d. Kritis</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="a">
+        <span class="q-num">Soal 3 · 10 poin</span>
+        <div class="q-text">Dalam perspektif Islam, proses perenungan mendalam terhadap ayat-ayat kauniyah dan qauliyah disebut...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q3" id="q3a" value="a"><label for="q3a">a. Tadabbur</label></div>
+          <div class="option"><input type="radio" name="q3" id="q3b" value="b"><label for="q3b">b. Taqlid</label></div>
+          <div class="option"><input type="radio" name="q3" id="q3c" value="c"><label for="q3c">c. Bid'ah</label></div>
+          <div class="option"><input type="radio" name="q3" id="q3d" value="d"><label for="q3d">d. Khurafat</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="d">
+        <span class="q-num">Soal 4 · 10 poin</span>
+        <div class="q-text">Menurut Amin Abdullah, pendekatan yang berbasis pada teks (wahyu) dalam tradisi keilmuan Islam disebut...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q4" id="q4a" value="a"><label for="q4a">a. Burhani</label></div>
+          <div class="option"><input type="radio" name="q4" id="q4b" value="b"><label for="q4b">b. Irfani</label></div>
+          <div class="option"><input type="radio" name="q4" id="q4c" value="c"><label for="q4c">c. Istiqra'i</label></div>
+          <div class="option"><input type="radio" name="q4" id="q4d" value="d"><label for="q4d">d. Bayani</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="b">
+        <span class="q-num">Soal 5 · 10 poin</span>
+        <div class="q-text">Dimensi ontologi dalam penelitian berkaitan dengan pertanyaan...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q5" id="q5a" value="a"><label for="q5a">a. Bagaimana cara memperoleh pengetahuan?</label></div>
+          <div class="option"><input type="radio" name="q5" id="q5b" value="b"><label for="q5b">b. Apa hakikat realitas yang dikaji?</label></div>
+          <div class="option"><input type="radio" name="q5" id="q5c" value="c"><label for="q5c">c. Untuk apa pengetahuan itu digunakan?</label></div>
+          <div class="option"><input type="radio" name="q5" id="q5d" value="d"><label for="q5d">d. Siapa yang melakukan penelitian?</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="c">
+        <span class="q-num">Soal 6 · 10 poin</span>
+        <div class="q-text">Tokoh yang memperkenalkan konsep "paradigma" dan "revolusi ilmiah" dalam filsafat ilmu modern adalah...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q6" id="q6a" value="a"><label for="q6a">a. Karl Popper</label></div>
+          <div class="option"><input type="radio" name="q6" id="q6b" value="b"><label for="q6b">b. Imre Lakatos</label></div>
+          <div class="option"><input type="radio" name="q6" id="q6c" value="c"><label for="q6c">c. Thomas Kuhn</label></div>
+          <div class="option"><input type="radio" name="q6" id="q6d" value="d"><label for="q6d">d. John Dewey</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="a">
+        <span class="q-num">Soal 7 · 10 poin</span>
+        <div class="q-text">Prinsip etika penelitian Islam yang menekankan kejujuran dalam pelaporan data disebut...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q7" id="q7a" value="a"><label for="q7a">a. Ṣidq</label></div>
+          <div class="option"><input type="radio" name="q7" id="q7b" value="b"><label for="q7b">b. Amanah</label></div>
+          <div class="option"><input type="radio" name="q7" id="q7c" value="c"><label for="q7c">c. 'Adl</label></div>
+          <div class="option"><input type="radio" name="q7" id="q7d" value="d"><label for="q7d">d. Iḥsān</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="d">
+        <span class="q-num">Soal 8 · 10 poin</span>
+        <div class="q-text">Dalam aksiologi penelitian pendidikan Islam, tujuan utama penelitian harus bermuara pada...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q8" id="q8a" value="a"><label for="q8a">a. Popularitas peneliti</label></div>
+          <div class="option"><input type="radio" name="q8" id="q8b" value="b"><label for="q8b">b. Keuntungan finansial semata</label></div>
+          <div class="option"><input type="radio" name="q8" id="q8c" value="c"><label for="q8c">c. Penghargaan akademik</label></div>
+          <div class="option"><input type="radio" name="q8" id="q8d" value="d"><label for="q8d">d. Kemaslahatan ummat dan keridhaan Allah</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="b">
+        <span class="q-num">Soal 9 · 10 poin</span>
+        <div class="q-text">Ilmuwan muslim yang dianggap sebagai pelopor metode ilmiah eksperimental — 600 tahun sebelum Francis Bacon — adalah...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q9" id="q9a" value="a"><label for="q9a">a. Al-Khawarizmi</label></div>
+          <div class="option"><input type="radio" name="q9" id="q9b" value="b"><label for="q9b">b. Ibnu Al-Haytham</label></div>
+          <div class="option"><input type="radio" name="q9" id="q9c" value="c"><label for="q9c">c. Ibnu Sina</label></div>
+          <div class="option"><input type="radio" name="q9" id="q9d" value="d"><label for="q9d">d. Al-Ghazali</label></div>
+        </div>
+      </div>
+
+      <div class="question" data-correct="c">
+        <span class="q-num">Soal 10 · 10 poin</span>
+        <div class="q-text">Menurut Ismail Raji Al-Faruqi, epistemologi Islam harus dibangun di atas prinsip...</div>
+        <div class="options">
+          <div class="option"><input type="radio" name="q10" id="q10a" value="a"><label for="q10a">a. Empirisme</label></div>
+          <div class="option"><input type="radio" name="q10" id="q10b" value="b"><label for="q10b">b. Rasionalisme</label></div>
+          <div class="option"><input type="radio" name="q10" id="q10c" value="c"><label for="q10c">c. Tauhid</label></div>
+          <div class="option"><input type="radio" name="q10" id="q10d" value="d"><label for="q10d">d. Pragmatisme</label></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-card">
+      <h3>✍️ Bagian B – Essay</h3>
+      <div class="warn-text">⚠️ Mohon isi semua 5 soal essay dengan jawaban yang komprehensif!</div>
+
+      <div class="question">
+        <span class="q-num">Soal 1 · 20 poin</span>
+        <div class="q-text">Jelaskan secara komprehensif hakikat penelitian ilmiah menurut para ahli (minimal 3 ahli), dan analisislah bagaimana konsep tersebut sejalan dengan semangat keilmuan dalam Islam!</div>
+        <textarea class="essay" data-q="1" placeholder="Tuliskan jawaban Anda di sini..."></textarea>
+      </div>
+
+      <div class="question">
+        <span class="q-num">Soal 2 · 20 poin</span>
+        <div class="q-text">Bandingkan pandangan Thomas Kuhn, Karl Popper, dan Imre Lakatos tentang perkembangan ilmu pengetahuan! Bagaimana implikasi masing-masing pandangan terhadap metodologi penelitian pendidikan Islam?</div>
+        <textarea class="essay" data-q="2" placeholder="Tuliskan jawaban Anda di sini..."></textarea>
+      </div>
+
+      <div class="question">
+        <span class="q-num">Soal 3 · 20 poin</span>
+        <div class="q-text">Menurut Amin Abdullah, terdapat tiga pendekatan keilmuan dalam Islam: bayani, burhani, dan irfani. Jelaskan masing-masing pendekatan, sebutkan tokoh tradisinya, dan berikan contoh penelitian pendidikan Islam yang mengintegrasikan ketiganya!</div>
+        <textarea class="essay" data-q="3" placeholder="Tuliskan jawaban Anda di sini..."></textarea>
+      </div>
+
+      <div class="question">
+        <span class="q-num">Soal 4 · 20 poin</span>
+        <div class="q-text">Analisislah kedudukan strategis penelitian dalam pengembangan pendidikan Islam kontemporer! Sertakan minimal tiga contoh konkret perannya dalam kebijakan, kurikulum, dan pemecahan masalah!</div>
+        <textarea class="essay" data-q="4" placeholder="Tuliskan jawaban Anda di sini..."></textarea>
+      </div>
+
+      <div class="question">
+        <span class="q-num">Soal 5 · 20 poin</span>
+        <div class="q-text">Berdasarkan tradisi keilmuan Islam yang telah dipelajari (dari Jabir bin Hayyan hingga Ibnu Khaldun), rancanglah sebuah ide penelitian sederhana di lingkungan Anda yang mengintegrasikan nilai-nilai Islam dan metodologi modern! Jelaskan masalah, pendekatan, dan manfaat yang diharapkan!</div>
+        <textarea class="essay" data-q="5" placeholder="Tuliskan jawaban Anda di sini..."></textarea>
+      </div>
+    </div>
+
+    <div class="score-box" id="scoreBox">
+      <h3>📊 Hasil Uji Formatif</h3>
+      <div class="score-display" id="totalScore">0</div>
+      <p style="color:var(--muted);font-size:.9rem">dari 100 poin</p>
+      <div class="score-detail">
+        <div><div class="num" id="scorePG">0</div><div class="lbl">Bagian A (PG)</div></div>
+        <div><div class="num" id="scoreEssay">0</div><div class="lbl">Bagian B (Essay)</div></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="downloadPDF()">📥 Unduh PDF Lengkap</button>
+        <button class="btn btn-ghost" onclick="downloadScore()">📊 Unduh Skor Saja</button>
+        <button class="btn btn-ghost" onclick="sendEmail()">✉️ Kirim Email Dosen</button>
+        <button class="btn btn-danger" onclick="resetQuiz()">🔄 Mulai Ulang</button>
+      </div>
+    </div>
+
+    <div class="btn-row" style="margin-top:30px">
+      <button class="btn btn-primary" onclick="submitQuiz()" id="submitBtn">✉️ KIRIM JAWABAN & LIHAT HASIL</button>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="brand">Metodologi Penelitian — S2 MPI</div>
+  <p>FTIK UIN Bukittinggi · © 2026 Dr. Ulva Rahmi, S.Ag., M.Pd</p>
+  <p style="margin-top:6px;font-size:.75rem;opacity:.6">Pertemuan 1 — Hakikat Penelitian & Kedudukannya dalam Pendidikan Islam</p>
+</footer>
+
+<script>
+function submitQuiz(){
+  const nama=document.getElementById('nama').value.trim();
+  const nim=document.getElementById('nim').value.trim();
+  if(!nama||!nim){alert('⚠️ Mohon lengkapi Nama dan NIM terlebih dahulu!');return}
+
+  let allPG=true;
+  for(let i=1;i<=10;i++){
+    if(!document.querySelector(`input[name="q${i}"]:checked`)){allPG=false;break}
+  }
+  if(!allPG){alert('⚠️ Mohon jawab semua 10 soal pilihan ganda terlebih dahulu!');return}
+
+  const essays=document.querySelectorAll('.essay');
+  let allEssay=true;
+  essays.forEach(e=>{if(!e.value.trim())allEssay=false});
+  if(!allEssay){alert('⚠️ Mohon isi semua 5 soal essay terlebih dahulu!');return}
+
+  let scorePG=0;
+  document.querySelectorAll('.question[data-correct]').forEach(q=>{
+    const correct=q.dataset.correct;
+    const selected=q.querySelector('input[type="radio"]:checked');
+    q.querySelectorAll('.option').forEach(o=>o.classList.remove('correct','wrong'));
+    if(selected){
+      const parent=selected.closest('.option');
+      if(selected.value===correct){
+        scorePG+=10;
+        parent.classList.add('correct');
+      } else {
+        parent.classList.add('wrong');
+        q.querySelectorAll('.option').forEach(o=>{
+          const inp=o.querySelector('input');
+          if(inp.value===correct)o.classList.add('correct');
+        });
+      }
+    }
+  });
+
+  let scoreEssay=0;
+  essays.forEach(e=>{
+    if(e.value.trim().length>50)scoreEssay+=20;
+  });
+
+  const total=scorePG+scoreEssay;
+  document.getElementById('scorePG').textContent=scorePG+'/100';
+  document.getElementById('scoreEssay').textContent=scoreEssay+'/100';
+  document.getElementById('totalScore').textContent=total;
+  document.getElementById('scoreBox').classList.add('show');
+  document.getElementById('scoreBox').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function resetQuiz(){
+  if(!confirm('Yakin ingin mengulang ujian? Semua jawaban akan dihapus.'))return;
+  document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.essay').forEach(e=>e.value='');
+  document.querySelectorAll('.option').forEach(o=>o.classList.remove('correct','wrong'));
+  document.getElementById('scoreBox').classList.remove('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function downloadPDF(){
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF();
+  const nama=document.getElementById('nama').value;
+  const nim=document.getElementById('nim').value;
+  const tgl=document.getElementById('tanggal').value||new Date().toISOString().split('T')[0];
+  const prodi=document.getElementById('prodi').value;
+  const scorePG=document.getElementById('scorePG').textContent;
+  const scoreEssay=document.getElementById('scoreEssay').textContent;
+  const total=document.getElementById('totalScore').textContent;
+
+  doc.setFontSize(16);doc.setFont('helvetica','bold');
+  doc.text('HASIL UJI FORMATIF',105,20,{align:'center'});
+  doc.setFontSize(11);doc.setFont('helvetica','normal');
+  doc.text('Metodologi Penelitian - Pertemuan 1',105,28,{align:'center'});
+  doc.text('Hakikat Penelitian & Kedudukannya dalam Pendidikan Islam',105,34,{align:'center'});
+
+  doc.line(20,40,190,40);
+  doc.setFontSize(10);
+  let y=50;
+  doc.text(`Nama       : ${nama}`,20,y);y+=6;
+  doc.text(`NIM        : ${nim}`,20,y);y+=6;
+  doc.text(`Tanggal    : ${tgl}`,20,y);y+=6;
+  doc.text(`Program    : ${prodi}`,20,y);y+=6;
+  doc.text(`Institusi   : FTIK UIN Bukittinggi`,20,y);y+=10;
+
+  doc.line(20,y,190,y);y+=8;
+  doc.setFont('helvetica','bold');
+  doc.text('HASIL PENILAIAN',20,y);y+=8;
+  doc.setFont('helvetica','normal');
+  doc.text(`Bagian A (Pilihan Ganda) : ${scorePG}`,20,y);y+=6;
+  doc.text(`Bagian B (Essay)         : ${scoreEssay}`,20,y);y+=6;
+  doc.setFont('helvetica','bold');
+  doc.text(`TOTAL SKOR               : ${total} / 200`,20,y);y+=12;
+
+  doc.setFont('helvetica','normal');doc.setFontSize(9);
+  doc.text('Jawaban Essay:',20,y);y+=6;
+  document.querySelectorAll('.essay').forEach((e,i)=>{
+    const lines=doc.splitTextToSize(`${i+1}. ${e.value}`,170);
+    if(y+lines.length*5>280){doc.addPage();y=20}
+    doc.text(lines,20,y);y+=lines.length*5+3;
+  });
+
+  doc.save(`UjiFormatif_P1_${nim}_${nama.replace(/\s+/g,'_')}.pdf`);
+}
+
+function downloadScore(){
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF();
+  const nama=document.getElementById('nama').value;
+  const nim=document.getElementById('nim').value;
+  const tgl=document.getElementById('tanggal').value||new Date().toISOString().split('T')[0];
+  const scorePG=document.getElementById('scorePG').textContent;
+  const scoreEssay=document.getElementById('scoreEssay').textContent;
+  const total=document.getElementById('totalScore').textContent;
+
+  doc.setFontSize(14);doc.setFont('helvetica','bold');
+  doc.text('LEMBAR SKOR UJI FORMATIF',105,25,{align:'center'});
+  doc.setFontSize(10);doc.setFont('helvetica','normal');
+  doc.text('Metodologi Penelitian - Pertemuan 1',105,33,{align:'center'});
+  doc.line(20,40,190,40);
+  let y=55;
+  doc.text(`Nama    : ${nama}`,20,y);y+=8;
+  doc.text(`NIM     : ${nim}`,20,y);y+=8;
+  doc.text(`Tanggal : ${tgl}`,20,y);y+=12;
+  doc.line(20,y,190,y);y+=10;
+  doc.setFont('helvetica','bold');
+  doc.text('SKOR:',20,y);y+=10;
+  doc.setFontSize(12);
+  doc.text(`Bagian A (PG)     : ${scorePG}`,25,y);y+=8;
+  doc.text(`Bagian B (Essay)  : ${scoreEssay}`,25,y);y+=8;
+  doc.setFontSize(14);
+  doc.text(`TOTAL             : ${total} / 200`,25,y);y+=15;
+  doc.setFontSize(9);doc.setFont('helvetica','normal');
+  doc.text('Divalidasi oleh: Dr. Ulva Rahmi, S.Ag., M.Pd',20,y+20);
+
+  doc.save(`Skor_P1_${nim}.pdf`);
+}
+
+function sendEmail(){
+  const nama=document.getElementById('nama').value;
+  const nim=document.getElementById('nim').value;
+  const scorePG=document.getElementById('scorePG').textContent;
+  const scoreEssay=document.getElementById('scoreEssay').textContent;
+  const total=document.getElementById('totalScore').textContent;
+  const subject=encodeURIComponent(`Hasil Uji Formatif P1 - ${nama} (${nim})`);
+  const body=encodeURIComponent(
+    `Yth. Dr. Ulva Rahmi, S.Ag., M.Pd\n\n`+
+    `Berikut hasil Uji Formatif Pertemuan 1 - Metodologi Penelitian:\n\n`+
+    `Nama    : ${nama}\n`+
+    `NIM     : ${nim}\n`+
+    `Bagian A (PG)     : ${scorePG}\n`+
+    `Bagian B (Essay)  : ${scoreEssay}\n`+
+    `TOTAL             : ${total} / 200\n\n`+
+    `Terima kasih.\nHormat saya,\n${nama}`
+  );
+  window.location.href=`mailto:ulvarahmi@uinbukittinggi.ac.id?subject=${subject}&body=${body}`;
+}
+</script>
+</body>
+</html>

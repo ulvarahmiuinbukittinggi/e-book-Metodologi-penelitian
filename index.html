@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Metodologi Penelitian — Dr. Ulva Rahmi, S.Ag., M.Pd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     GANTI GAMBAR DI BAGIAN INI:
+     - Cover buku  : ubah isi variabel --cover
+     - Photo penulis: ubah isi variabel --photo
+     ========================================================= */
+  :root{
+    --cover: url('cover-buku.png');      /* <-- GANTI NAMA FILE COVER DI SINI */
+    --photo: url('photo-penulis.jpg');   /* <-- GANTI NAMA FILE PHOTO DI SINI */
+
+    --bg-0:#0a0a0f;
+    --bg-1:#11111a;
+    --bg-2:#1a1a26;
+    --gold:#c9a961;
+    --gold-2:#e8c987;
+    --gold-soft:rgba(201,169,97,.15);
+    --text:#e9e6df;
+    --muted:#9a9689;
+    --line:rgba(201,169,97,.25);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg-0);
+    color:var(--text);
+    line-height:1.6;
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(201,169,97,.08), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(201,169,97,.05), transparent 40%);
+  }
+
+  /* ============ NAVBAR ============ */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    padding:18px 6%;
+    display:flex;justify-content:space-between;align-items:center;
+    backdrop-filter:blur(14px);
+    background:rgba(10,10,15,.6);
+    border-bottom:1px solid var(--line);
+  }
+  .nav .brand{
+    font-family:'Playfair Display',serif;
+    font-size:1.25rem;font-weight:600;letter-spacing:2px;
+    color:var(--gold-2);
+  }
+  .nav .brand span{color:var(--text);font-style:italic;font-weight:400}
+  .nav ul{display:flex;gap:32px;list-style:none}
+  .nav ul a{
+    color:var(--muted);text-decoration:none;font-size:.85rem;
+    letter-spacing:1.5px;text-transform:uppercase;transition:.3s;
+  }
+  .nav ul a:hover{color:var(--gold-2)}
+  @media(max-width:720px){.nav ul{display:none}}
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:100vh;
+    display:grid;grid-template-columns:1fr 1fr;gap:60px;
+    align-items:center;
+    padding:140px 6% 80px;
+    position:relative;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:
+      linear-gradient(135deg,transparent 0%,rgba(201,169,97,.04) 50%,transparent 100%);
+    pointer-events:none;
+  }
+  .hero-text{position:relative;z-index:2}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:12px;
+    color:var(--gold);font-size:.75rem;letter-spacing:4px;text-transform:uppercase;
+    margin-bottom:24px;
+  }
+  .eyebrow::before{content:"";width:40px;height:1px;background:var(--gold)}
+  .hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2.5rem,5.5vw,4.8rem);
+    font-weight:700;line-height:1.05;
+    background:linear-gradient(135deg,#fff 0%,var(--gold-2) 60%,var(--gold) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    margin-bottom:20px;
+  }
+  .hero h1 em{font-style:italic;font-weight:400;color:var(--gold-2);-webkit-text-fill-color:var(--gold-2)}
+  .hero .subtitle{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.35rem;font-style:italic;color:var(--muted);
+    margin-bottom:32px;max-width:500px;
+  }
+  .author-card{
+    display:flex;align-items:center;gap:20px;
+    padding:20px 24px;
+    background:linear-gradient(135deg,rgba(201,169,97,.08),rgba(201,169,97,.02));
+    border:1px solid var(--line);border-radius:14px;
+    max-width:520px;margin-bottom:32px;
+  }
+  .author-photo{
+    width:72px;height:72px;border-radius:50%;
+    background:var(--photo) center/cover no-repeat,
+               linear-gradient(135deg,var(--gold),#8a6d3b);
+    border:2px solid var(--gold);
+    flex-shrink:0;
+    box-shadow:0 0 0 4px rgba(201,169,97,.1);
+  }
+  .author-info h3{
+    font-family:'Playfair Display',serif;
+    font-size:1.15rem;font-weight:600;color:#fff;margin-bottom:4px;
+  }
+  .author-info p{font-size:.85rem;color:var(--muted);margin-bottom:2px}
+  .author-info a{color:var(--gold-2);text-decoration:none;font-size:.85rem}
+  .author-info a:hover{text-decoration:underline}
+
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:14px 30px;border-radius:50px;
+    font-size:.85rem;letter-spacing:2px;text-transform:uppercase;
+    text-decoration:none;transition:.35s;cursor:pointer;border:none;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,var(--gold) 0%,var(--gold-2) 100%);
+    color:#1a1a26;font-weight:600;
+    box-shadow:0 10px 30px rgba(201,169,97,.25);
+  }
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(201,169,97,.4)}
+  .btn-ghost{
+    background:transparent;color:var(--gold-2);
+    border:1px solid var(--gold);
+  }
+  .btn-ghost:hover{background:var(--gold-soft);transform:translateY(-3px)}
+
+  /* ============ BOOK COVER ============ */
+  .hero-visual{
+    position:relative;display:flex;justify-content:center;align-items:center;
+    perspective:1500px;
+  }
+  .book{
+    position:relative;
+    width:340px;height:480px;
+    transform-style:preserve-3d;
+    transform:rotateY(-22deg) rotateX(4deg);
+    transition:transform .8s cubic-bezier(.2,.8,.2,1);
+    animation:float 6s ease-in-out infinite;
+  }
+  .book:hover{transform:rotateY(-8deg) rotateX(2deg) scale(1.03)}
+  @keyframes float{
+    0%,100%{translate:0 0}
+    50%{translate:0 -14px}
+  }
+  .book-cover{
+    position:absolute;inset:0;
+    background:var(--cover) center/cover no-repeat,
+               linear-gradient(135deg,#2a2438 0%,#1a1a26 100%);
+    border-radius:4px 12px 12px 4px;
+    box-shadow:
+      0 30px 60px rgba(0,0,0,.6),
+      0 0 0 1px rgba(201,169,97,.3),
+      inset 0 0 60px rgba(0,0,0,.4);
+  }
+  .book-spine{
+    position:absolute;left:-22px;top:0;bottom:0;width:22px;
+    background:linear-gradient(90deg,#1a1a26 0%,#2a2438 100%);
+    transform:rotateY(-90deg) translateX(-11px);
+    transform-origin:right;
+    border-radius:4px 0 0 4px;
+  }
+  .book-shadow{
+    position:absolute;bottom:-40px;left:10%;right:10%;height:30px;
+    background:radial-gradient(ellipse at center,rgba(0,0,0,.6),transparent 70%);
+    filter:blur(10px);
+  }
+  .gold-ornament{
+    position:absolute;width:400px;height:400px;
+    border:1px solid var(--line);border-radius:50%;
+    top:50%;left:50%;transform:translate(-50%,-50%);
+    pointer-events:none;
+  }
+  .gold-ornament::after{
+    content:"";position:absolute;inset:-40px;
+    border:1px solid rgba(201,169,97,.12);border-radius:50%;
+  }
+  @media(max-width:960px){
+    .hero{grid-template-columns:1fr;text-align:center;padding-top:120px}
+    .hero-text{order:2}
+    .hero-visual{order:1;margin-bottom:20px}
+    .author-card{margin:0 auto 32px}
+    .cta-row{justify-content:center}
+    .eyebrow{justify-content:center}
+    .book{width:260px;height:370px}
+  }
+
+  /* ============ SECTION TITLE ============ */
+  .section{padding:100px 6%;position:relative}
+  .section-head{text-align:center;margin-bottom:70px}
+  .section-head .eyebrow{justify-content:center}
+  .section-head h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,4vw,3.2rem);font-weight:600;
+    color:#fff;margin-bottom:16px;
+  }
+  .section-head h2 em{font-style:italic;color:var(--gold-2);font-weight:400}
+  .section-head p{color:var(--muted);max-width:600px;margin:0 auto}
+
+  /* ============ MEETINGS GRID ============ */
+  .meetings{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:24px;max-width:1300px;margin:0 auto;
+  }
+  .meeting{
+    position:relative;
+    padding:30px 28px;
+    background:linear-gradient(145deg,rgba(26,26,38,.8),rgba(17,17,26,.6));
+    border:1px solid var(--line);
+    border-radius:16px;
+    text-decoration:none;color:inherit;
+    overflow:hidden;
+    transition:.45s cubic-bezier(.2,.8,.2,1);
+    display:block;
+  }
+  .meeting::before{
+    content:"";position:absolute;top:0;left:0;width:100%;height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    transform:translateX(-100%);transition:.6s;
+  }
+  .meeting:hover::before{transform:translateX(100%)}
+  .meeting:hover{
+    transform:translateY(-8px);
+    border-color:var(--gold);
+    box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 30px rgba(201,169,97,.15);
+  }
+  .meeting-num{
+    font-family:'Playfair Display',serif;
+    font-size:3rem;font-weight:700;
+    background:linear-gradient(135deg,var(--gold),var(--gold-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    line-height:1;margin-bottom:14px;
+    font-style:italic;
+  }
+  .meeting-tag{
+    display:inline-block;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;
+    color:var(--gold);padding:4px 10px;
+    border:1px solid var(--gold);border-radius:20px;margin-bottom:14px;
+  }
+  .meeting-tag.exam{background:var(--gold);color:#1a1a26}
+  .meeting h4{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.25rem;font-weight:600;color:#fff;
+    line-height:1.3;margin-bottom:12px;
+  }
+  .meeting p{font-size:.85rem;color:var(--muted);margin-bottom:18px}
+  .meeting .arrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.75rem;letter-spacing:2px;text-transform:uppercase;
+    color:var(--gold-2);transition:.3s;
+  }
+  .meeting:hover .arrow{gap:14px;color:var(--gold)}
+
+  /* ============ FOOTER ============ */
+  footer{
+    padding:50px 6% 30px;
+    border-top:1px solid var(--line);
+    text-align:center;color:var(--muted);font-size:.85rem;
+  }
+  footer .brand{
+    font-family:'Playfair Display',serif;color:var(--gold-2);
+    font-size:1.1rem;margin-bottom:10px;
+  }
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(30px);transition:1s cubic-bezier(.2,.8,.2,1)}
+  .reveal.show{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="nav">
+  <div class="brand">METOPEN <span>— MPI</span></div>
+  <ul>
+    <li><a href="#tentang">Tentang</a></li>
+    <li><a href="#pertemuan">Pertemuan</a></li>
+    <li><a href="#penulis">Penulis</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="tentang">
+  <div class="hero-text">
+    <div class="eyebrow">Edisi Akademik 2026</div>
+    <h1>Metodologi <em>Penelitian</em></h1>
+    <p class="subtitle">“Dari paradigma menuju temuan — sebuah perjalanan ilmiah dalam pendidikan Islam.”</p>
+
+    <div class="author-card" id="penulis">
+      <!-- PHOTO PENULIS: otomatis terbaca dari CSS --photo (photo-penulis.jpg) -->
+      <div class="author-photo" aria-label="Foto Penulis"></div>
+      <div class="author-info">
+        <h3>Dr. Ulva Rahmi, S.Ag., M.Pd</h3>
+        <p>FTIK UIN Bukittinggi</p>
+        <a href="mailto:ulvarahmi@uinbukittinggi.ac.id">ulvarahmi@uinbukittinggi.ac.id</a>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a href="#pertemuan" class="btn btn-primary">Jelajahi 16 Pertemuan →</a>
+      <a href="mailto:ulvarahmi@uinbukittinggi.ac.id" class="btn btn-ghost">Hubungi Penulis</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="gold-ornament"></div>
+    <div class="book">
+      <div class="book-spine"></div>
+      <!-- COVER BUKU: otomatis terbaca dari CSS --cover (cover-buku.png) -->
+      <div class="book-cover" aria-label="Cover Buku"></div>
+      <div class="book-shadow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 16 PERTEMUAN ============ -->
+<section class="section" id="pertemuan">
+  <div class="section-head reveal">
+    <div class="eyebrow">Silabus Perkuliahan</div>
+    <h2>16 <em>Pertemuan</em> Ilmiah</h2>
+    <p>Setiap pertemuan dirancang sebagai satu pintu masuk ke dunia penelitian — dari fondasi filosofis hingga penyusunan proposal tesis.</p>
+  </div>
+
+  <div class="meetings">
+
+    <a class="meeting reveal" href="1.html" target="_blank" rel="noopener">
+      <div class="meeting-num">01</div>
+      <span class="meeting-tag">Fundamen</span>
+      <h4>Hakikat Penelitian & Kedudukannya dalam Pendidikan Islam</h4>
+      <p>Paradigma ilmiah, orientasi keilmuan, dan peran penelitian dalam peradaban Islam.</p>
+      <span class="arrow">Buka Materi →</span>
+    </a>
+
+    <a class="meeting reveal" href="2.html" target="_blank" rel="noopener">
+      <div class="meeting-num">02</div>
+      <span class="meeting-tag">Kuantitatif</span>
+      <h4>Penelitian Kuantitatif: Ciri, Variabel & Desain</h4>
+      <p>Eksperimen, survei, dan korelasional — mengenali karakter riset numerik.</p>
+      <span class="arrow">Buka Materi →</span>
+    </a>
+
+    <a class="meeting reveal" href="3.html" target="_blank" rel="noopener">
+      <div class="meeting-num">03</div>
+      <span class="meeting-tag">Instrumen</span>
+      <h4>Penyusunan Instrumen Penelitian Kuantitatif</h4>
+      <p>Kuesioner, skala, uji validitas & reliabilitas — membangun alat ukur yang kokoh.</p>
+      <span class="arrow">Buka Materi →</span>
+    </a>
+
+    <a class="meeting reveal" href="4.html" target="_blank" rel="noopener">
+      <div class="meeting-num">04</div>
+      <span class="meeting-tag">Analisis</span>
+      <h4>Statistik Deskriptif, Inferensial & Aplikasi Software</h4>
+      <p>Praktikum SPSS, AMOS, dan SmartPLS — mengolah data menjadi temuan.</p>
+      <span class="arrow">Buka Materi →</span>
+    </a>
+
+    <a class="meeting reveal" href="5.html" target="_blank" rel="noopener">
+      <div class="meeting-num">05</div>
+      <span class="meeting-tag">Kualitatif</span>
+      <h4>Pendekatan Kualitatif: Fenomenologi hingga Grounded Theory</h4>
+      <p>Memaknai realitas melalui kacamata partisipan — etnografi, studi kasus, dan fenomenologi.</p>
+      <span class="arrow">Buka Materi →</span>
+    </a>
+
+    <a class="meeting reveal" href="6.html" target="_blank" rel="noopener">
+      <div class="meeting-num">06</div>
+      <span class="meeting-tag">Teknik</span>
+      <h4>Pengumpulan & Analisis Data Kualitatif</h4>
+      <p>Observasi, wawancara, dokumentasi, triangulasi, dan model Miles & Huberman.</p>
+      <span class="arrow">Buka Materi →</span>
+    </a>
+
+    <a class="meeting reveal" href="7.html" target="_blank" rel="noopener">
+      <div class="meeting-num">07</div>
+      <span class="meeting-tag">Penulisan</span>
+      <h4>Sistematika Laporan & Etika Penelitian</h4>
+      <p>Merangkai temuan, mengintegrasikan teori, dan menjaga integritas ilmiah.</p>
+      <span class="arrow">Buka Materi →</span>
+    </a>
+
+    <a class="meeting reveal" href="8.html" target="_blank" rel="noopener">
+      <div class="meeting-num">08</div>
+      <span class="meeting-tag exam">Ujian Tengah Semester</span>
+      <h4>UTS — Analisis Kasus Kuantitatif & Kualitatif</h4>
+      <p>Evaluasi capaian pembelajaran paruh pertama melalui studi kasus terintegrasi.</p>
+      <span class="arrow">Buka Soal →</span>
+    </a>
+
+    <a class="meeting reveal" href="9.html" target="_blank" rel="noopener">
+      <div class="meeting-num">09</div>
+      <span class="meeting-tag">R&D</span>
+      <h4>Konsep Penelitian Pengembangan (R&D)</h4>
+      <p>Model Borg & Gall, Sugiyono, dan Plomp — fondasi riset berbasis produk.</p>
+      <span class="arrow">Buka Materi →</span>
+    </a>
+
+    <a class="meeting reveal" href="10.html" target="_blank" rel="noopener">
+      <div class="meeting-num">10</div>
+      <span class="meeting-tag">R&D</span>
+      <h4>Merancang Penelitian R&D</h4>
+      <p>Identifikasi masalah, studi pendahuluan, perumusan tujuan, dan desain awal produk.</p>
+      <span class="arrow">Buka Materi →</span>
+    </a>
+
+    <a class="meeting reveal" href="11.html" target="_blank" rel="noopener">
+      <div class="meeting-num">11</div>
+      <span class="meeting-tag">R&D</span>
+      <h4>Uji Coba & Validasi Produk</h4>
+      <p>Validasi ahli, uji coba terbatas & lapangan, serta revisi produk berbasis umpan balik.</p>
+      <span class="arrow">Buka Materi →</span>
+    </a>
+
+    <a class="meeting reveal" href="12.html" target="_blank" rel="noopener">
+      <div class="meeting-num">12</div>
+      <span class="meeting-tag">R&D</span>
+      <h4>Analisis Data Penelitian R&D</h4>
+      <p>Mengolah hasil validasi dan uji coba menjadi laporan produk yang akuntabel.</p>
+      <span class="arrow">Buka Materi →</span>
+    </a>
+
+    <a class="meeting reveal" href="13.html" target="_blank" rel="noopener">
+      <div class="meeting-num">13</div>
+      <span class="meeting-tag">Evaluasi</span>
+      <h4>Konsep Evaluasi Program</h4>
+      <p>Model CIPP, Kirkpatrick, dan Stake — membaca program sebagai objek kajian.</p>
+      <span class="arrow">Buka Materi →</span>
+    </a>
+
+    <a class="meeting reveal" href="14.html" target="_blank" rel="noopener">
+      <div class="meeting-num">14</div>
+      <span class="meeting-tag">Evaluasi</span>
+      <h4>Teknik & Instrumen Evaluasi Program</h4>
+      <p>Merancang angket, wawancara, dan observasi untuk evaluasi program pendidikan Islam.</p>
+      <span class="arrow">Buka Materi →</span>
+    </a>
+
+    <a class="meeting reveal" href="15.html" target="_blank" rel="noopener">
+      <div class="meeting-num">15</div>
+      <span class="meeting-tag">Integrasi</span>
+      <h4>Sistematika Laporan R&D & Evaluasi Program</h4>
+      <p>Menyusun outline proposal tesis — benang merah dari ide hingga naskah akademik.</p>
+      <span class="arrow">Buka Materi →</span>
+    </a>
+
+    <a class="meeting reveal" href="16.html" target="_blank" rel="noopener">
+      <div class="meeting-num">16</div>
+      <span class="meeting-tag exam">Ujian Akhir Semester</span>
+      <h4>UAS — Penyusunan Proposal Tesis</h4>
+      <p>Presentasi proposal berbasis kuantitatif, kualitatif, R&D, atau evaluasi program.</p>
+      <span class="arrow">Buka Soal →</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="brand">Metodologi Penelitian — S2 MPI</div>
+  <p>FTIK UIN Bukittinggi · © 2026 Dr. Ulva Rahmi, S.Ag., M.Pd</p>
+  <p style="margin-top:6px;font-size:.75rem;opacity:.6">Dirancang dengan ketelitian ilmiah & sentuhan estetika.</p>
+</footer>
+
+<script>
+  /* ====== REVEAL ON SCROLL ====== */
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('show');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  /* ====== PARALLAX HALUS PADA BUKU ====== */
+  const book = document.querySelector('.book');
+  document.addEventListener('mousemove',(e)=>{
+    const x = (e.clientX / window.innerWidth - .5) * 10;
+    const y = (e.clientY / window.innerHeight - .5) * 6;
+    book.style.transform = `rotateY(${-22 + x}deg) rotateX(${4 - y}deg)`;
+  });
+</script>
+</body>
+</html>
